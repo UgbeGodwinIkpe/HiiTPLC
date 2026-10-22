@@ -16,7 +16,7 @@ export interface CredentialsEmailPayload {
 
 export function buildStudentCredentialsHtml(payload: CredentialsEmailPayload): { subject: string; html: string; text: string; preview: string } {
   const subject = `Welcome to HiiT PLC — Your Student CBT Portal Login Credentials [${payload.regNumber}]`;
-  const portalUrl = payload.portalUrl || 'http://localhost:3000/';
+  const portalUrl = 'https://hiitplc.onrender.com/';
   const preview = `Your student account has been created. Reg Number: ${payload.regNumber}, Password: ${payload.password}`;
 
   const text = `
