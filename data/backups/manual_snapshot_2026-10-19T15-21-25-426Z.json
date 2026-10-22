@@ -1,0 +1,820 @@
+{
+  "meta": {
+    "system": "HiiT CBT Assessment & Management System",
+    "centre": "Abuja Training Centre",
+    "version": "2.0.0",
+    "exportedAt": "2026-10-19T15:21:25.426Z",
+    "totalRecords": 46
+  },
+  "users": [
+    {
+      "id": "usr_coord_1",
+      "name": "Prof. Adeleke Oladipo",
+      "email": "coordinator@hiit.ng",
+      "role": "coordinator",
+      "phone": "+234 803 111 2233",
+      "status": "active",
+      "createdAt": "2026-01-10T08:00:00Z"
+    },
+    {
+      "id": "usr_inst_1",
+      "name": "Dr. Emmanuel Okafor",
+      "email": "instructor.okafor@hiit.ng",
+      "role": "instructor",
+      "phone": "+234 802 333 4455",
+      "assignedCourseIds": [
+        "crs_1",
+        "crs_4"
+      ],
+      "assignedBatchIds": [
+        "batch_1"
+      ],
+      "status": "active",
+      "createdAt": "2026-01-15T09:30:00Z"
+    },
+    {
+      "id": "usr_inst_2",
+      "name": "Engr. Fatima Bello",
+      "email": "instructor.fatima@hiit.ng",
+      "role": "instructor",
+      "phone": "+234 805 666 7788",
+      "assignedCourseIds": [
+        "crs_2"
+      ],
+      "assignedBatchIds": [
+        "batch_2"
+      ],
+      "status": "active",
+      "createdAt": "2026-01-18T11:00:00Z"
+    },
+    {
+      "id": "usr_inst_3",
+      "name": "Mr. Chidubem Nnamdi",
+      "email": "instructor.chidubem@hiit.ng",
+      "role": "instructor",
+      "phone": "+234 809 999 0011",
+      "assignedCourseIds": [
+        "crs_3"
+      ],
+      "assignedBatchIds": [
+        "batch_3"
+      ],
+      "status": "active",
+      "createdAt": "2026-02-01T10:00:00Z"
+    },
+    {
+      "id": "usr_reg_1",
+      "name": "Mrs. Amina Yusuf",
+      "email": "registrar@hiit.ng",
+      "role": "registrar",
+      "phone": "+234 801 222 3344",
+      "status": "active",
+      "createdAt": "2026-01-05T08:00:00Z"
+    },
+    {
+      "id": "usr_std_1",
+      "name": "Aisha Abubakar",
+      "email": "aisha.a@gmail.com",
+      "role": "student",
+      "regNumber": "HIIT/2026/001",
+      "phone": "+234 812 345 6789",
+      "assignedCourseIds": [
+        "crs_1"
+      ],
+      "assignedBatchIds": [
+        "batch_1"
+      ],
+      "status": "active",
+      "createdAt": "2026-02-10T14:00:00Z"
+    },
+    {
+      "id": "usr_std_2",
+      "name": "Daniel Okon",
+      "email": "daniel.okon@yahoo.com",
+      "role": "student",
+      "regNumber": "HIIT/2026/002",
+      "phone": "+234 813 456 7890",
+      "assignedCourseIds": [
+        "crs_1"
+      ],
+      "assignedBatchIds": [
+        "batch_1"
+      ],
+      "status": "active",
+      "createdAt": "2026-02-10T14:15:00Z"
+    },
+    {
+      "id": "usr_std_3",
+      "name": "Grace Chukwu",
+      "email": "grace.c@outlook.com",
+      "role": "student",
+      "regNumber": "HIIT/2026/003",
+      "phone": "+234 814 567 8901",
+      "assignedCourseIds": [
+        "crs_2"
+      ],
+      "assignedBatchIds": [
+        "batch_2"
+      ],
+      "status": "active",
+      "createdAt": "2026-02-12T09:00:00Z"
+    },
+    {
+      "id": "usr_std_4",
+      "name": "Ibrahim Musa",
+      "email": "ibrahim.m@hiit.ng",
+      "role": "student",
+      "regNumber": "HIIT/2026/004",
+      "phone": "+234 815 678 9012",
+      "assignedCourseIds": [
+        "crs_3"
+      ],
+      "assignedBatchIds": [
+        "batch_3"
+      ],
+      "status": "active",
+      "createdAt": "2026-02-15T10:30:00Z"
+    },
+    {
+      "id": "usr_std_5",
+      "name": "Blessing Adebayo",
+      "email": "blessing.a@gmail.com",
+      "role": "student",
+      "regNumber": "HIIT/2026/005",
+      "phone": "+234 816 789 0123",
+      "assignedCourseIds": [
+        "crs_1"
+      ],
+      "assignedBatchIds": [
+        "batch_1"
+      ],
+      "status": "active",
+      "createdAt": "2026-02-16T11:20:00Z"
+    }
+  ],
+  "courses": [
+    {
+      "id": "crs_1",
+      "code": "SE-301",
+      "title": "Full Stack Software Engineering (Python & React)",
+      "description": "Comprehensive software engineering covering Python, Django REST Framework, React, PostgreSQL, and Cloud Deployment.",
+      "durationWeeks": 16,
+      "status": "active",
+      "createdAt": "2026-01-10T09:00:00Z"
+    },
+    {
+      "id": "crs_2",
+      "code": "DS-401",
+      "title": "Data Science & Artificial Intelligence",
+      "description": "Data analysis, statistics, Python Pandas, Scikit-Learn, TensorFlow, and Large Language Models implementation.",
+      "durationWeeks": 12,
+      "status": "active",
+      "createdAt": "2026-01-12T10:00:00Z"
+    },
+    {
+      "id": "crs_3",
+      "code": "CYBER-201",
+      "title": "Cybersecurity & Ethical Hacking Specialist",
+      "description": "Network penetration testing, vulnerability assessment, cryptography, and SIEM security Operations.",
+      "durationWeeks": 12,
+      "status": "active",
+      "createdAt": "2026-01-15T11:00:00Z"
+    },
+    {
+      "id": "crs_4",
+      "code": "NET-101",
+      "title": "CompTIA Network+ & Cloud Infrastructure",
+      "description": "Core networking principles, TCP/IP protocols, routing & switching, firewall configuration, and AWS Basics.",
+      "durationWeeks": 8,
+      "status": "active",
+      "createdAt": "2026-01-20T08:00:00Z"
+    }
+  ],
+  "batches": [
+    {
+      "id": "batch_1",
+      "name": "2026-B1 Abuja Morning (Software Eng)",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "instructorId": "usr_inst_1",
+      "instructorName": "Dr. Emmanuel Okafor",
+      "startDate": "2026-02-01",
+      "endDate": "2026-06-01",
+      "status": "active",
+      "studentCount": 3
+    },
+    {
+      "id": "batch_2",
+      "name": "2026-B1 Abuja Afternoon (Data Science)",
+      "courseId": "crs_2",
+      "courseTitle": "Data Science & Artificial Intelligence",
+      "instructorId": "usr_inst_2",
+      "instructorName": "Engr. Fatima Bello",
+      "startDate": "2026-02-15",
+      "endDate": "2026-05-15",
+      "status": "active",
+      "studentCount": 1
+    },
+    {
+      "id": "batch_3",
+      "name": "2026-B2 Abuja Evening (Cybersecurity)",
+      "courseId": "crs_3",
+      "courseTitle": "Cybersecurity & Ethical Hacking Specialist",
+      "instructorId": "usr_inst_3",
+      "instructorName": "Mr. Chidubem Nnamdi",
+      "startDate": "2026-03-01",
+      "endDate": "2026-06-01",
+      "status": "active",
+      "studentCount": 1
+    }
+  ],
+  "students": [
+    {
+      "id": "usr_std_1",
+      "fullName": "Aisha Abubakar",
+      "regNumber": "HIIT/2026/001",
+      "email": "aisha.a@gmail.com",
+      "phone": "+234 812 345 6789",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "batchId": "batch_1",
+      "batchName": "2026-B1 Abuja Morning (Software Eng)",
+      "status": "active",
+      "registeredAt": "2026-02-10T14:00:00Z"
+    },
+    {
+      "id": "usr_std_2",
+      "fullName": "Daniel Okon",
+      "regNumber": "HIIT/2026/002",
+      "email": "daniel.okon@yahoo.com",
+      "phone": "+234 813 456 7890",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "batchId": "batch_1",
+      "batchName": "2026-B1 Abuja Morning (Software Eng)",
+      "status": "active",
+      "registeredAt": "2026-02-10T14:15:00Z"
+    },
+    {
+      "id": "usr_std_3",
+      "fullName": "Grace Chukwu",
+      "regNumber": "HIIT/2026/003",
+      "email": "grace.c@outlook.com",
+      "phone": "+234 814 567 8901",
+      "courseId": "crs_2",
+      "courseTitle": "Data Science & Artificial Intelligence",
+      "batchId": "batch_2",
+      "batchName": "2026-B1 Abuja Afternoon (Data Science)",
+      "status": "active",
+      "registeredAt": "2026-02-12T09:00:00Z"
+    },
+    {
+      "id": "usr_std_4",
+      "fullName": "Ibrahim Musa",
+      "regNumber": "HIIT/2026/004",
+      "email": "ibrahim.m@hiit.ng",
+      "phone": "+234 815 678 9012",
+      "courseId": "crs_3",
+      "courseTitle": "Cybersecurity & Ethical Hacking Specialist",
+      "batchId": "batch_3",
+      "batchName": "2026-B2 Abuja Evening (Cybersecurity)",
+      "status": "active",
+      "registeredAt": "2026-02-15T10:30:00Z"
+    },
+    {
+      "id": "usr_std_5",
+      "fullName": "Blessing Adebayo",
+      "regNumber": "HIIT/2026/005",
+      "email": "blessing.a@gmail.com",
+      "phone": "+234 816 789 0123",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "batchId": "batch_1",
+      "batchName": "2026-B1 Abuja Morning (Software Eng)",
+      "status": "active",
+      "registeredAt": "2026-02-16T11:20:00Z"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q_1",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "instructorId": "usr_inst_1",
+      "instructorName": "Dr. Emmanuel Okafor",
+      "questionText": "In Django, which component is primarily responsible for handling database abstractions and object-relational mapping?",
+      "optionA": "Views",
+      "optionB": "Models",
+      "optionC": "Templates",
+      "optionD": "URLs Conf",
+      "correctAnswer": "B",
+      "marks": 5,
+      "difficulty": "easy",
+      "topic": "Django Architecture",
+      "status": "approved",
+      "createdAt": "2026-02-01T10:00:00Z"
+    },
+    {
+      "id": "q_2",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "instructorId": "usr_inst_1",
+      "instructorName": "Dr. Emmanuel Okafor",
+      "questionText": "Which HTTP status code signifies that a client is unauthorized to access a protected DRF endpoint without valid JWT headers?",
+      "optionA": "200 OK",
+      "optionB": "400 Bad Request",
+      "optionC": "401 Unauthorized",
+      "optionD": "404 Not Found",
+      "correctAnswer": "C",
+      "marks": 5,
+      "difficulty": "easy",
+      "topic": "REST API & Security",
+      "status": "approved",
+      "createdAt": "2026-02-01T10:10:00Z"
+    },
+    {
+      "id": "q_3",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "instructorId": "usr_inst_1",
+      "instructorName": "Dr. Emmanuel Okafor",
+      "questionText": "What is the primary benefit of React Virtual DOM reconciliation during state updates?",
+      "optionA": "It executes direct SQL database transactions on client side.",
+      "optionB": "It minimizes real browser DOM manipulations by diffing virtual node trees.",
+      "optionC": "It replaces CSS stylesheets with JavaScript compilation.",
+      "optionD": "It disables cross-origin resource sharing automatically.",
+      "correctAnswer": "B",
+      "marks": 5,
+      "difficulty": "medium",
+      "topic": "React Core Concepts",
+      "status": "approved",
+      "createdAt": "2026-02-01T10:20:00Z"
+    },
+    {
+      "id": "q_4",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "instructorId": "usr_inst_1",
+      "instructorName": "Dr. Emmanuel Okafor",
+      "questionText": "Which Python decorator is used in Django REST Framework to convert a function-based view into an API view?",
+      "optionA": "@api_view()",
+      "optionB": "@login_required",
+      "optionC": "@csrf_exempt",
+      "optionD": "@transaction.atomic",
+      "correctAnswer": "A",
+      "marks": 5,
+      "difficulty": "medium",
+      "topic": "Django REST Framework",
+      "status": "approved",
+      "createdAt": "2026-02-01T10:30:00Z"
+    },
+    {
+      "id": "q_5",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "instructorId": "usr_inst_1",
+      "instructorName": "Dr. Emmanuel Okafor",
+      "questionText": "Which hook in React is strictly used to perform side effects like data fetching or subscribing to events?",
+      "optionA": "useState",
+      "optionB": "useReducer",
+      "optionC": "useEffect",
+      "optionD": "useContext",
+      "correctAnswer": "C",
+      "marks": 5,
+      "difficulty": "easy",
+      "topic": "React Hooks",
+      "status": "approved",
+      "createdAt": "2026-02-01T10:40:00Z"
+    },
+    {
+      "id": "q_6",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "instructorId": "usr_inst_1",
+      "instructorName": "Dr. Emmanuel Okafor",
+      "questionText": "What database constraint guarantees that a user registration number or email address cannot be duplicated in PostgreSQL?",
+      "optionA": "FOREIGN KEY constraint",
+      "optionB": "UNIQUE constraint",
+      "optionC": "CHECK constraint",
+      "optionD": "CASCADE DELETE",
+      "correctAnswer": "B",
+      "marks": 5,
+      "difficulty": "medium",
+      "topic": "Database Engineering",
+      "status": "approved",
+      "createdAt": "2026-02-01T10:50:00Z"
+    },
+    {
+      "id": "q_7",
+      "courseId": "crs_2",
+      "courseTitle": "Data Science & Artificial Intelligence",
+      "instructorId": "usr_inst_2",
+      "instructorName": "Engr. Fatima Bello",
+      "questionText": "In Pandas library, which function is used to load a comma-separated values dataset into a DataFrame?",
+      "optionA": "pd.open_csv()",
+      "optionB": "pd.read_csv()",
+      "optionC": "pd.load_file()",
+      "optionD": "pd.import_table()",
+      "correctAnswer": "B",
+      "marks": 5,
+      "difficulty": "easy",
+      "topic": "Pandas Data Wrangling",
+      "status": "approved",
+      "createdAt": "2026-02-05T09:00:00Z"
+    },
+    {
+      "id": "q_8",
+      "courseId": "crs_2",
+      "courseTitle": "Data Science & Artificial Intelligence",
+      "instructorId": "usr_inst_2",
+      "instructorName": "Engr. Fatima Bello",
+      "questionText": "Which machine learning algorithm is supervised and used for classification problems by finding the optimal hyperplane?",
+      "optionA": "K-Means Clustering",
+      "optionB": "Support Vector Machine (SVM)",
+      "optionC": "Apriori Algorithm",
+      "optionD": "Principal Component Analysis (PCA)",
+      "correctAnswer": "B",
+      "marks": 5,
+      "difficulty": "hard",
+      "topic": "Machine Learning Algorithms",
+      "status": "approved",
+      "createdAt": "2026-02-05T09:15:00Z"
+    },
+    {
+      "id": "q_9",
+      "courseId": "crs_3",
+      "courseTitle": "Cybersecurity & Ethical Hacking Specialist",
+      "instructorId": "usr_inst_3",
+      "instructorName": "Mr. Chidubem Nnamdi",
+      "questionText": "Which type of cyber attack involves injecting malicious SQL commands into web form inputs to manipulate database queries?",
+      "optionA": "Cross-Site Scripting (XSS)",
+      "optionB": "SQL Injection (SQLi)",
+      "optionC": "Man-in-the-Middle (MitM)",
+      "optionD": "Distributed Denial of Service (DDoS)",
+      "correctAnswer": "B",
+      "marks": 5,
+      "difficulty": "easy",
+      "topic": "Web Application Security",
+      "status": "approved",
+      "createdAt": "2026-02-08T11:00:00Z"
+    },
+    {
+      "id": "q_10",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "instructorId": "usr_inst_1",
+      "instructorName": "Dr. Emmanuel Okafor",
+      "questionText": "What is the function of CORS (Cross-Origin Resource Sharing) middleware in web applications?",
+      "optionA": "To encrypt passwords in database tables.",
+      "optionB": "To allow or restrict resources requested from a different domain or port.",
+      "optionC": "To compile TypeScript into JavaScript.",
+      "optionD": "To automatically generate API documentation.",
+      "correctAnswer": "B",
+      "marks": 5,
+      "difficulty": "medium",
+      "topic": "Web Security",
+      "status": "pending",
+      "createdAt": "2026-02-10T14:00:00Z"
+    }
+  ],
+  "exams": [
+    {
+      "id": "ex_1",
+      "title": "Full Stack Django & React Mid-Term CBT Examination",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "batchId": "batch_1",
+      "batchName": "2026-B1 Abuja Morning (Software Eng)",
+      "instructorId": "usr_inst_1",
+      "instructorName": "Dr. Emmanuel Okafor",
+      "durationMinutes": 15,
+      "passingScorePercent": 60,
+      "instructions": "1. Read all questions carefully before selecting your option.\n2. You can navigate back and forth between questions.\n3. Every answer saves automatically.\n4. Ensure you click Submit Exam before time expires.",
+      "questionIds": [
+        "q_1",
+        "q_2",
+        "q_3",
+        "q_4",
+        "q_5",
+        "q_6"
+      ],
+      "totalMarks": 30,
+      "shuffleQuestions": true,
+      "shuffleOptions": true,
+      "status": "published",
+      "createdAt": "2026-02-12T10:00:00Z"
+    },
+    {
+      "id": "ex_2",
+      "title": "Data Science & Machine Learning Practical CBT Test",
+      "courseId": "crs_2",
+      "courseTitle": "Data Science & Artificial Intelligence",
+      "batchId": "batch_2",
+      "batchName": "2026-B1 Abuja Afternoon (Data Science)",
+      "instructorId": "usr_inst_2",
+      "instructorName": "Engr. Fatima Bello",
+      "durationMinutes": 20,
+      "passingScorePercent": 65,
+      "instructions": "1. Test covers Pandas, Scikit-learn, and Machine Learning classification algorithms.\n2. Auto-grading will apply immediately upon submission.",
+      "questionIds": [
+        "q_7",
+        "q_8"
+      ],
+      "totalMarks": 10,
+      "shuffleQuestions": false,
+      "shuffleOptions": true,
+      "status": "published",
+      "createdAt": "2026-02-14T09:00:00Z"
+    },
+    {
+      "id": "ex_3",
+      "title": "Cybersecurity Fundamentals & Threat Analysis Quiz",
+      "courseId": "crs_3",
+      "courseTitle": "Cybersecurity & Ethical Hacking Specialist",
+      "batchId": "batch_3",
+      "batchName": "2026-B2 Abuja Evening (Cybersecurity)",
+      "instructorId": "usr_inst_3",
+      "instructorName": "Mr. Chidubem Nnamdi",
+      "durationMinutes": 10,
+      "passingScorePercent": 70,
+      "instructions": "Complete all questions on web vulnerabilities and defensive security controls.",
+      "questionIds": [
+        "q_9"
+      ],
+      "totalMarks": 5,
+      "shuffleQuestions": true,
+      "shuffleOptions": false,
+      "status": "pending",
+      "createdAt": "2026-02-15T16:00:00Z"
+    }
+  ],
+  "attempts": [
+    {
+      "id": "att_1",
+      "examId": "ex_1",
+      "examTitle": "Full Stack Django & React Mid-Term CBT Examination",
+      "studentId": "usr_std_1",
+      "studentRegNumber": "HIIT/2026/001",
+      "studentName": "Aisha Abubakar",
+      "batchId": "batch_1",
+      "startTime": "2026-02-14T10:00:00Z",
+      "endTime": "2026-02-14T10:11:30Z",
+      "timeSpentSeconds": 690,
+      "status": "submitted",
+      "answers": {
+        "q_1": "B",
+        "q_2": "C",
+        "q_3": "B",
+        "q_4": "A",
+        "q_5": "C",
+        "q_6": "B"
+      },
+      "flaggedQuestions": [],
+      "scoreObtained": 30,
+      "totalMarksPossible": 30,
+      "percentage": 100,
+      "grade": "A",
+      "isPassed": true,
+      "gradedAt": "2026-02-14T10:11:30Z"
+    },
+    {
+      "id": "att_2",
+      "examId": "ex_1",
+      "examTitle": "Full Stack Django & React Mid-Term CBT Examination",
+      "studentId": "usr_std_2",
+      "studentRegNumber": "HIIT/2026/002",
+      "studentName": "Daniel Okon",
+      "batchId": "batch_1",
+      "startTime": "2026-02-14T11:00:00Z",
+      "endTime": "2026-02-14T11:14:00Z",
+      "timeSpentSeconds": 840,
+      "status": "submitted",
+      "answers": {
+        "q_1": "B",
+        "q_2": "B",
+        "q_3": "B",
+        "q_4": "A",
+        "q_5": "A",
+        "q_6": "B"
+      },
+      "flaggedQuestions": [
+        "q_2"
+      ],
+      "scoreObtained": 20,
+      "totalMarksPossible": 30,
+      "percentage": 66.7,
+      "grade": "B",
+      "isPassed": true,
+      "gradedAt": "2026-02-14T11:14:00Z"
+    },
+    {
+      "id": "att_3",
+      "examId": "ex_2",
+      "examTitle": "Data Science & Machine Learning Practical CBT Test",
+      "studentId": "usr_std_3",
+      "studentRegNumber": "HIIT/2026/003",
+      "studentName": "Grace Chukwu",
+      "batchId": "batch_2",
+      "startTime": "2026-02-15T14:00:00Z",
+      "endTime": "2026-02-15T14:12:00Z",
+      "timeSpentSeconds": 720,
+      "status": "submitted",
+      "answers": {
+        "q_7": "B",
+        "q_8": "A"
+      },
+      "flaggedQuestions": [],
+      "scoreObtained": 5,
+      "totalMarksPossible": 10,
+      "percentage": 50,
+      "grade": "F",
+      "isPassed": false,
+      "gradedAt": "2026-02-15T14:12:00Z"
+    }
+  ],
+  "attendance": [
+    {
+      "id": "att_sess_1",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "courseCode": "SE-301",
+      "batchId": "batch_1",
+      "batchName": "2026-B1 Abuja Morning (Software Eng)",
+      "instructorId": "usr_inst_1",
+      "instructorName": "Dr. Emmanuel Okafor",
+      "date": "2026-07-28",
+      "topic": "Lecture 1: Full Stack System Architecture & Docker Setup",
+      "records": [
+        {
+          "studentId": "usr_std_1",
+          "studentRegNumber": "HIIT/2026/001",
+          "studentName": "Aisha Abubakar",
+          "status": "present"
+        },
+        {
+          "studentId": "usr_std_2",
+          "studentRegNumber": "HIIT/2026/002",
+          "studentName": "Daniel Okon",
+          "status": "present"
+        },
+        {
+          "studentId": "usr_std_5",
+          "studentRegNumber": "HIIT/2026/005",
+          "studentName": "Blessing Adebayo",
+          "status": "present"
+        }
+      ],
+      "createdAt": "2026-07-28T10:00:00Z",
+      "updatedAt": "2026-07-28T10:00:00Z"
+    },
+    {
+      "id": "att_sess_2",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "courseCode": "SE-301",
+      "batchId": "batch_1",
+      "batchName": "2026-B1 Abuja Morning (Software Eng)",
+      "instructorId": "usr_inst_1",
+      "instructorName": "Dr. Emmanuel Okafor",
+      "date": "2026-07-30",
+      "topic": "Lecture 2: React Component Hierarchy & State Hooks",
+      "records": [
+        {
+          "studentId": "usr_std_1",
+          "studentRegNumber": "HIIT/2026/001",
+          "studentName": "Aisha Abubakar",
+          "status": "present"
+        },
+        {
+          "studentId": "usr_std_2",
+          "studentRegNumber": "HIIT/2026/002",
+          "studentName": "Daniel Okon",
+          "status": "late",
+          "remarks": "Joined 15 mins late due to traffic"
+        },
+        {
+          "studentId": "usr_std_5",
+          "studentRegNumber": "HIIT/2026/005",
+          "studentName": "Blessing Adebayo",
+          "status": "present"
+        }
+      ],
+      "createdAt": "2026-07-30T10:00:00Z",
+      "updatedAt": "2026-07-30T10:00:00Z"
+    },
+    {
+      "id": "att_sess_3",
+      "courseId": "crs_1",
+      "courseTitle": "Full Stack Software Engineering (Python & React)",
+      "courseCode": "SE-301",
+      "batchId": "batch_1",
+      "batchName": "2026-B1 Abuja Morning (Software Eng)",
+      "instructorId": "usr_inst_1",
+      "instructorName": "Dr. Emmanuel Okafor",
+      "date": "2026-08-01",
+      "topic": "Lecture 3: Django REST Framework Models & Serializers",
+      "records": [
+        {
+          "studentId": "usr_std_1",
+          "studentRegNumber": "HIIT/2026/001",
+          "studentName": "Aisha Abubakar",
+          "status": "present"
+        },
+        {
+          "studentId": "usr_std_2",
+          "studentRegNumber": "HIIT/2026/002",
+          "studentName": "Daniel Okon",
+          "status": "absent",
+          "remarks": "Unexcused absence"
+        },
+        {
+          "studentId": "usr_std_5",
+          "studentRegNumber": "HIIT/2026/005",
+          "studentName": "Blessing Adebayo",
+          "status": "present"
+        }
+      ],
+      "createdAt": "2026-08-01T10:00:00Z",
+      "updatedAt": "2026-08-01T10:00:00Z"
+    },
+    {
+      "id": "att_sess_4",
+      "courseId": "crs_2",
+      "courseTitle": "Data Science & Artificial Intelligence",
+      "courseCode": "DS-401",
+      "batchId": "batch_2",
+      "batchName": "2026-B1 Abuja Afternoon (Data Science)",
+      "instructorId": "usr_inst_2",
+      "instructorName": "Engr. Fatima Bello",
+      "date": "2026-07-29",
+      "topic": "Lecture 1: Python Data Science Ecosystem & NumPy Arrays",
+      "records": [
+        {
+          "studentId": "usr_std_3",
+          "studentRegNumber": "HIIT/2026/003",
+          "studentName": "Grace Chukwu",
+          "status": "present"
+        }
+      ],
+      "createdAt": "2026-07-29T14:00:00Z",
+      "updatedAt": "2026-07-29T14:00:00Z"
+    },
+    {
+      "id": "att_sess_5",
+      "courseId": "crs_3",
+      "courseTitle": "Cybersecurity & Ethical Hacking Specialist",
+      "courseCode": "CYBER-201",
+      "batchId": "batch_3",
+      "batchName": "2026-B2 Abuja Evening (Cybersecurity)",
+      "instructorId": "usr_inst_3",
+      "instructorName": "Mr. Chidubem Nnamdi",
+      "date": "2026-07-31",
+      "topic": "Lecture 1: Network Reconnaissance & Port Scanning Tools",
+      "records": [
+        {
+          "studentId": "usr_std_4",
+          "studentRegNumber": "HIIT/2026/004",
+          "studentName": "Ibrahim Musa",
+          "status": "present"
+        }
+      ],
+      "createdAt": "2026-07-31T17:00:00Z",
+      "updatedAt": "2026-07-31T17:00:00Z"
+    }
+  ],
+  "logs": [
+    {
+      "id": "log_1",
+      "userId": "usr_coord_1",
+      "userName": "Prof. Adeleke Oladipo",
+      "userRole": "coordinator",
+      "action": "SYSTEM_INIT",
+      "details": "HiiT CBT Assessment System initialized for Abuja Training Centre.",
+      "timestamp": "2026-02-01T08:00:00Z"
+    },
+    {
+      "id": "log_2",
+      "userId": "usr_inst_1",
+      "userName": "Dr. Emmanuel Okafor",
+      "userRole": "instructor",
+      "action": "EXAM_PUBLISHED",
+      "details": "Published \"Full Stack Django & React Mid-Term CBT Examination\" for Batch 2026-B1 Abuja Morning.",
+      "timestamp": "2026-02-12T10:05:00Z"
+    },
+    {
+      "id": "log_3",
+      "userId": "usr_std_1",
+      "userName": "Aisha Abubakar",
+      "userRole": "student",
+      "action": "EXAM_SUBMITTED",
+      "details": "Submitted \"Full Stack Django & React Mid-Term CBT Examination\" with score 100% (Passed).",
+      "timestamp": "2026-02-14T10:11:30Z"
+    }
+  ],
+  "settings": {
+    "showResultsImmediately": true,
+    "instituteName": "HiiT PLC",
+    "centerLocation": "Abuja Training Centre, Plot 1083 Ahmadu Bello Way, Garki II",
+    "allowStudentReviewAnswers": true
+  }
+}

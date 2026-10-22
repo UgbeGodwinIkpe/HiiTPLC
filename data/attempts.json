@@ -1,0 +1,84 @@
+[
+  {
+    "id": "att_1",
+    "examId": "ex_1",
+    "examTitle": "Full Stack Django & React Mid-Term CBT Examination",
+    "studentId": "usr_std_1",
+    "studentRegNumber": "HIIT/2026/001",
+    "studentName": "Aisha Abubakar",
+    "batchId": "batch_1",
+    "startTime": "2026-02-14T10:00:00Z",
+    "endTime": "2026-02-14T10:11:30Z",
+    "timeSpentSeconds": 690,
+    "status": "submitted",
+    "answers": {
+      "q_1": "B",
+      "q_2": "C",
+      "q_3": "B",
+      "q_4": "A",
+      "q_5": "C",
+      "q_6": "B"
+    },
+    "flaggedQuestions": [],
+    "scoreObtained": 30,
+    "totalMarksPossible": 30,
+    "percentage": 100,
+    "grade": "A",
+    "isPassed": true,
+    "gradedAt": "2026-02-14T10:11:30Z"
+  },
+  {
+    "id": "att_2",
+    "examId": "ex_1",
+    "examTitle": "Full Stack Django & React Mid-Term CBT Examination",
+    "studentId": "usr_std_2",
+    "studentRegNumber": "HIIT/2026/002",
+    "studentName": "Daniel Okon",
+    "batchId": "batch_1",
+    "startTime": "2026-02-14T11:00:00Z",
+    "endTime": "2026-02-14T11:14:00Z",
+    "timeSpentSeconds": 840,
+    "status": "submitted",
+    "answers": {
+      "q_1": "B",
+      "q_2": "B",
+      "q_3": "B",
+      "q_4": "A",
+      "q_5": "A",
+      "q_6": "B"
+    },
+    "flaggedQuestions": [
+      "q_2"
+    ],
+    "scoreObtained": 20,
+    "totalMarksPossible": 30,
+    "percentage": 66.7,
+    "grade": "B",
+    "isPassed": true,
+    "gradedAt": "2026-02-14T11:14:00Z"
+  },
+  {
+    "id": "att_3",
+    "examId": "ex_2",
+    "examTitle": "Data Science & Machine Learning Practical CBT Test",
+    "studentId": "usr_std_3",
+    "studentRegNumber": "HIIT/2026/003",
+    "studentName": "Grace Chukwu",
+    "batchId": "batch_2",
+    "startTime": "2026-02-15T14:00:00Z",
+    "endTime": "2026-02-15T14:12:00Z",
+    "timeSpentSeconds": 720,
+    "status": "submitted",
+    "answers": {
+      "q_7": "B",
+      "q_8": "A"
+    },
+    "flaggedQuestions": [],
+    "scoreObtained": 5,
+    "totalMarksPossible": 10,
+    "percentage": 50,
+    "grade": "F",
+    "isPassed": false,
+    "gradedAt": "2026-02-15T14:12:00Z"
+  }
+]

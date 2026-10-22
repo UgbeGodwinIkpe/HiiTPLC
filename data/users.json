@@ -1,0 +1,171 @@
+[
+  {
+    "id": "usr_inst_1792668851807",
+    "name": "Godwin Ugbe, CPN, CSE",
+    "email": "cidusface@gmail.com",
+    "role": "instructor",
+    "password": "123456",
+    "phone": "09166562432",
+    "assignedCourseIds": [
+      "crs_1792668616937"
+    ],
+    "assignedBatchIds": [],
+    "status": "active",
+    "createdAt": "2026-10-22T11:34:11.807Z"
+  },
+  {
+    "id": "usr_coord_godwin",
+    "name": "Godwin Ugbe",
+    "email": "ugbegodwin7963@gmail.com",
+    "role": "coordinator",
+    "password": "hiit123",
+    "phone": "+234 800 000 0000",
+    "status": "active",
+    "createdAt": "2026-01-01T08:00:00Z"
+  },
+  {
+    "id": "usr_coord_1",
+    "name": "Prof. Adeleke Oladipo",
+    "email": "coordinator@hiit.ng",
+    "role": "coordinator",
+    "password": "hiit123",
+    "phone": "+234 803 111 2233",
+    "status": "active",
+    "createdAt": "2026-01-10T08:00:00Z"
+  },
+  {
+    "id": "usr_inst_1",
+    "name": "Dr. Emmanuel Okafor",
+    "email": "instructor.okafor@hiit.ng",
+    "role": "instructor",
+    "phone": "+234 802 333 4455",
+    "assignedCourseIds": [
+      "crs_1",
+      "crs_4"
+    ],
+    "assignedBatchIds": [
+      "batch_1"
+    ],
+    "status": "active",
+    "createdAt": "2026-01-15T09:30:00Z"
+  },
+  {
+    "id": "usr_inst_2",
+    "name": "Engr. Fatima Bello",
+    "email": "instructor.fatima@hiit.ng",
+    "role": "instructor",
+    "phone": "+234 805 666 7788",
+    "assignedCourseIds": [
+      "crs_2"
+    ],
+    "assignedBatchIds": [
+      "batch_2"
+    ],
+    "status": "active",
+    "createdAt": "2026-01-18T11:00:00Z"
+  },
+  {
+    "id": "usr_inst_3",
+    "name": "Mr. Chidubem Nnamdi",
+    "email": "instructor.chidubem@hiit.ng",
+    "role": "instructor",
+    "phone": "+234 809 999 0011",
+    "assignedCourseIds": [
+      "crs_3"
+    ],
+    "assignedBatchIds": [
+      "batch_3"
+    ],
+    "status": "active",
+    "createdAt": "2026-02-01T10:00:00Z"
+  },
+  {
+    "id": "usr_reg_1",
+    "name": "Mrs. Amina Yusuf",
+    "email": "registrar@hiit.ng",
+    "role": "registrar",
+    "phone": "+234 801 222 3344",
+    "status": "active",
+    "createdAt": "2026-01-05T08:00:00Z"
+  },
+  {
+    "id": "usr_std_1",
+    "name": "Aisha Abubakar",
+    "email": "aisha.a@gmail.com",
+    "role": "student",
+    "regNumber": "HIIT/2026/001",
+    "phone": "+234 812 345 6789",
+    "assignedCourseIds": [
+      "crs_1"
+    ],
+    "assignedBatchIds": [
+      "batch_1"
+    ],
+    "status": "active",
+    "createdAt": "2026-02-10T14:00:00Z"
+  },
+  {
+    "id": "usr_std_2",
+    "name": "Daniel Okon",
+    "email": "daniel.okon@yahoo.com",
+    "role": "student",
+    "regNumber": "HIIT/2026/002",
+    "phone": "+234 813 456 7890",
+    "assignedCourseIds": [
+      "crs_1"
+    ],
+    "assignedBatchIds": [
+      "batch_1"
+    ],
+    "status": "active",
+    "createdAt": "2026-02-10T14:15:00Z"
+  },
+  {
+    "id": "usr_std_3",
+    "name": "Grace Chukwu",
+    "email": "grace.c@outlook.com",
+    "role": "student",
+    "regNumber": "HIIT/2026/003",
+    "phone": "+234 814 567 8901",
+    "assignedCourseIds": [
+      "crs_2"
+    ],
+    "assignedBatchIds": [
+      "batch_2"
+    ],
+    "status": "active",
+    "createdAt": "2026-02-12T09:00:00Z"
+  },
+  {
+    "id": "usr_std_4",
+    "name": "Ibrahim Musa",
+    "email": "ibrahim.m@hiit.ng",
+    "role": "student",
+    "regNumber": "HIIT/2026/004",
+    "phone": "+234 815 678 9012",
+    "assignedCourseIds": [
+      "crs_3"
+    ],
+    "assignedBatchIds": [
+      "batch_3"
+    ],
+    "status": "active",
+    "createdAt": "2026-02-15T10:30:00Z"
+  },
+  {
+    "id": "usr_std_5",
+    "name": "Blessing Adebayo",
+    "email": "blessing.a@gmail.com",
+    "role": "student",
+    "regNumber": "HIIT/2026/005",
+    "phone": "+234 816 789 0123",
+    "assignedCourseIds": [
+      "crs_1"
+    ],
+    "assignedBatchIds": [
+      "batch_1"
+    ],
+    "status": "active",
+    "createdAt": "2026-02-16T11:20:00Z"
+  }
+]

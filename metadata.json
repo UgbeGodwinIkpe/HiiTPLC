@@ -1,0 +1,6 @@
+{
+  "name": "HiiT CBT Management System",
+  "description": "Academic Assessment & CBT Management System for HiiT PLC Abuja Training Centre featuring RBAC, Question Bank, Approval Workflow, CBT Engine, Auto-Marking, and Analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

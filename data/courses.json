@@ -1,0 +1,11 @@
+[
+  {
+    "id": "crs_1792668616937",
+    "code": "PYP",
+    "title": "Python Programming",
+    "description": "Learn Python from scratch. No prior coding experience needed. Master Python fundamentals, data structures, functions, OOP, file handling, and build real projects ready for web development, data analysis, and automation.",
+    "durationWeeks": 8,
+    "status": "active",
+    "createdAt": "2026-10-22T11:30:16.937Z"
+  }
+]

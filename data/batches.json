@@ -1,0 +1,14 @@
+[
+  {
+    "id": "batch_1792668992547",
+    "name": "Python_Oct_2026_Thurs_Fri",
+    "courseId": "crs_1792668616937",
+    "courseTitle": "Python Programming",
+    "instructorId": "usr_inst_1792668851807",
+    "instructorName": "Godwin Ugbe, CPN, CSE",
+    "startDate": "2026-10-22",
+    "endDate": "2026-12-18",
+    "status": "active",
+    "studentCount": 0
+  }
+]

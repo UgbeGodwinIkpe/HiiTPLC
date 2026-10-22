@@ -1,0 +1,227 @@
+[
+  {
+    "id": "log_1792671471299_qp9g",
+    "userId": "usr_std_1792671246434",
+    "userName": "Cidusface Ugbe",
+    "userRole": "student",
+    "action": "USER_LOGIN",
+    "details": "Student logged in with Reg Number HIIT/2026/001",
+    "timestamp": "2026-10-22T12:17:51.299Z"
+  },
+  {
+    "id": "log_1792671249322_wutd",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Live emailed credentials for Cidusface Ugbe (HIIT/2026/001) to cidusface@gmail.com [SENT]",
+    "timestamp": "2026-10-22T12:14:09.322Z"
+  },
+  {
+    "id": "log_1792671246441_9k6u",
+    "userId": "usr_inst_1",
+    "userName": "Instructor",
+    "userRole": "instructor",
+    "action": "STUDENT_ADDED",
+    "details": "Enrolled student Cidusface Ugbe (HIIT/2026/001)",
+    "timestamp": "2026-10-22T12:14:06.441Z"
+  },
+  {
+    "id": "log_1792671142151_lmcu",
+    "userId": "usr_coord_godwin",
+    "userName": "Godwin Ugbe",
+    "userRole": "coordinator",
+    "action": "USER_LOGIN",
+    "details": "COORDINATOR logged in: ugbegodwin7963@gmail.com",
+    "timestamp": "2026-10-22T12:12:22.151Z"
+  },
+  {
+    "id": "log_1792670990059_2i4x",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Live emailed credentials for Cidusface Ugbe (HIIT/2026/001) to cidusface@gmail.com [SENT]",
+    "timestamp": "2026-10-22T12:09:50.059Z"
+  },
+  {
+    "id": "log_1792670987846_kwiy",
+    "userId": "usr_inst_1",
+    "userName": "Instructor",
+    "userRole": "instructor",
+    "action": "STUDENT_ADDED",
+    "details": "Enrolled student Cidusface Ugbe (HIIT/2026/001)",
+    "timestamp": "2026-10-22T12:09:47.846Z"
+  },
+  {
+    "id": "log_1792669092698_urbb",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Live emailed credentials for Cidusface Ugbe (HIIT/2026/001) to cidusface@gmail.com [SENT]",
+    "timestamp": "2026-10-22T11:38:12.698Z"
+  },
+  {
+    "id": "log_1792669090870_sdpn",
+    "userId": "usr_inst_1",
+    "userName": "Instructor",
+    "userRole": "instructor",
+    "action": "STUDENT_ADDED",
+    "details": "Enrolled student Cidusface Ugbe (HIIT/2026/001)",
+    "timestamp": "2026-10-22T11:38:10.870Z"
+  },
+  {
+    "id": "log_1792668992555_8hfr",
+    "userId": "usr_inst_1792668851807",
+    "userName": "Godwin Ugbe, CPN, CSE",
+    "userRole": "instructor",
+    "action": "BATCH_CREATED",
+    "details": "Created batch Python_Oct_2026_Thurs_Fri",
+    "timestamp": "2026-10-22T11:36:32.555Z"
+  },
+  {
+    "id": "log_1792668851811_hpts",
+    "userId": "usr_coord_1",
+    "userName": "Faculty Coordinator",
+    "userRole": "coordinator",
+    "action": "INSTRUCTOR_ADDED",
+    "details": "Added instructor: Godwin Ugbe, CPN, CSE (cidusface@gmail.com)",
+    "timestamp": "2026-10-22T11:34:11.811Z"
+  },
+  {
+    "id": "log_1792668616941_iprs",
+    "userId": "usr_coord_1",
+    "userName": "Faculty Coordinator",
+    "userRole": "coordinator",
+    "action": "COURSE_CREATED",
+    "details": "Added course PYP: Python Programming",
+    "timestamp": "2026-10-22T11:30:16.941Z"
+  },
+  {
+    "id": "log_1792668105248_25h2",
+    "userId": "usr_coord_godwin",
+    "userName": "Godwin Ugbe",
+    "userRole": "coordinator",
+    "action": "USER_LOGIN",
+    "details": "COORDINATOR logged in: ugbegodwin7963@gmail.com",
+    "timestamp": "2026-10-22T11:21:45.248Z"
+  },
+  {
+    "id": "log_1792659937195_gl2s",
+    "userId": "usr_coord_godwin",
+    "userName": "Godwin Ugbe",
+    "userRole": "coordinator",
+    "action": "USER_LOGIN",
+    "details": "COORDINATOR logged in: ugbegodwin7963@gmail.com",
+    "timestamp": "2026-10-22T09:05:37.195Z"
+  },
+  {
+    "id": "log_1792486353517_2gd6",
+    "userId": "usr_coord_godwin",
+    "userName": "Godwin Ugbe",
+    "userRole": "coordinator",
+    "action": "USER_LOGIN",
+    "details": "COORDINATOR logged in: ugbegodwin7963@gmail.com",
+    "timestamp": "2026-10-20T08:52:33.517Z"
+  },
+  {
+    "id": "log_1792486345627_658t",
+    "userId": "usr_std_1792486340113",
+    "userName": "Zainab Aliyu",
+    "userRole": "student",
+    "action": "USER_LOGIN",
+    "details": "Student logged in with Reg Number HIIT/2026/007",
+    "timestamp": "2026-10-20T08:52:25.627Z"
+  },
+  {
+    "id": "log_1792486340115_tek6",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Sent login credentials to Zainab Aliyu (HIIT/2026/007) at zainab.aliyu@example.com [Trigger: student_added]",
+    "timestamp": "2026-10-20T08:52:20.115Z"
+  },
+  {
+    "id": "log_1792486340114_du14",
+    "userId": "usr_inst_1",
+    "userName": "Instructor",
+    "userRole": "instructor",
+    "action": "STUDENT_ADDED",
+    "details": "Enrolled student Zainab Aliyu (HIIT/2026/007)",
+    "timestamp": "2026-10-20T08:52:20.114Z"
+  },
+  {
+    "id": "log_1792485306121_2p6n",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Sent login credentials to Emeka Okafor (HIIT/2026/006) at emeka.okafor@example.com [Trigger: student_added]",
+    "timestamp": "2026-10-20T08:35:06.121Z"
+  },
+  {
+    "id": "log_1792485306120_3h53",
+    "userId": "usr_inst_1",
+    "userName": "Instructor",
+    "userRole": "instructor",
+    "action": "STUDENT_ADDED",
+    "details": "Enrolled student Emeka Okafor (HIIT/2026/006)",
+    "timestamp": "2026-10-20T08:35:06.120Z"
+  },
+  {
+    "id": "log_1792424592091_qz3a",
+    "userId": "usr_coord_1",
+    "userName": "Prof. Adeleke Oladipo",
+    "userRole": "coordinator",
+    "action": "USER_LOGIN",
+    "details": "COORDINATOR logged in: coordinator@hiit.ng",
+    "timestamp": "2026-10-19T15:43:12.091Z"
+  },
+  {
+    "id": "log_1792424498992_roie",
+    "userId": "usr_std_1",
+    "userName": "Aisha Abubakar",
+    "userRole": "student",
+    "action": "USER_LOGIN",
+    "details": "Student logged in with Reg Number HIIT/2026/001",
+    "timestamp": "2026-10-19T15:41:38.992Z"
+  },
+  {
+    "id": "log_1792424467645_qdoo",
+    "userId": "usr_coord_1",
+    "userName": "Prof. Adeleke Oladipo",
+    "userRole": "coordinator",
+    "action": "USER_LOGIN",
+    "details": "COORDINATOR logged in: coordinator@hiit.ng",
+    "timestamp": "2026-10-19T15:41:07.645Z"
+  },
+  {
+    "id": "log_1",
+    "userId": "usr_coord_1",
+    "userName": "Prof. Adeleke Oladipo",
+    "userRole": "coordinator",
+    "action": "SYSTEM_INIT",
+    "details": "HiiT CBT Assessment System initialized for Abuja Training Centre.",
+    "timestamp": "2026-02-01T08:00:00Z"
+  },
+  {
+    "id": "log_2",
+    "userId": "usr_inst_1",
+    "userName": "Dr. Emmanuel Okafor",
+    "userRole": "instructor",
+    "action": "EXAM_PUBLISHED",
+    "details": "Published \"Full Stack Django & React Mid-Term CBT Examination\" for Batch 2026-B1 Abuja Morning.",
+    "timestamp": "2026-02-12T10:05:00Z"
+  },
+  {
+    "id": "log_3",
+    "userId": "usr_std_1",
+    "userName": "Aisha Abubakar",
+    "userRole": "student",
+    "action": "EXAM_SUBMITTED",
+    "details": "Submitted \"Full Stack Django & React Mid-Term CBT Examination\" with score 100% (Passed).",
+    "timestamp": "2026-02-14T10:11:30Z"
+  }
+]
