@@ -68,17 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Right Action Icons & Profile Info */}
         <div className="flex items-center space-x-1.5 sm:space-x-3">
           {/* Persistent JSON Storage Status */}
-          {onOpenDatabase && (
-            // <button
-            //   onClick={onOpenDatabase}
-            //   className="flex items-center space-x-1.5 px-2 sm:px-2.5 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/80 text-xs font-bold transition-all shadow-2xs"
-            //   title="Persistent JSON File Storage: Synchronized & Active (Click to Manage)"
-            // >
-            //   <Database className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-            //   <span className="hidden md:inline">JSON DB: Synced</span>
-            //   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            // </button>
-          )}
+          
 
           {/* Dark Mode Toggle */}
           <button
