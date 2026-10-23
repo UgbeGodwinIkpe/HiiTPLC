@@ -1,5 +1,50 @@
 [
   {
+    "id": "log_1792757295827_8ezw",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Live emailed credentials for Cidusface Ikpe Ugbe (HIIT/2026/001) to cidusface@gmail.com [SENT]",
+    "timestamp": "2026-10-23T12:08:15.827Z"
+  },
+  {
+    "id": "log_1792757292422_iy6y",
+    "userId": "usr_inst_1",
+    "userName": "Instructor",
+    "userRole": "instructor",
+    "action": "STUDENT_ADDED",
+    "details": "Enrolled student Cidusface Ikpe Ugbe (HIIT/2026/001)",
+    "timestamp": "2026-10-23T12:08:12.422Z"
+  },
+  {
+    "id": "log_1792754154682_rtl4",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Live emailed credentials for Ikpe Ugbe (HIIT/2026/002) to cidusface@gmail.com [SENT]",
+    "timestamp": "2026-10-23T11:15:54.682Z"
+  },
+  {
+    "id": "log_1792754151053_omjo",
+    "userId": "usr_inst_1",
+    "userName": "Instructor",
+    "userRole": "instructor",
+    "action": "STUDENT_ADDED",
+    "details": "Enrolled student Ikpe Ugbe (HIIT/2026/002)",
+    "timestamp": "2026-10-23T11:15:51.053Z"
+  },
+  {
+    "id": "log_1792754088796_t8gm",
+    "userId": "usr_coord_godwin",
+    "userName": "Godwin Ugbe",
+    "userRole": "coordinator",
+    "action": "USER_LOGIN",
+    "details": "COORDINATOR logged in: ugbegodwin7963@gmail.com",
+    "timestamp": "2026-10-23T11:14:48.796Z"
+  },
+  {
     "id": "log_1792671471299_qp9g",
     "userId": "usr_std_1792671246434",
     "userName": "Cidusface Ugbe",
