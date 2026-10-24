@@ -1,16 +1,30 @@
 [
   {
-    "id": "usr_std_1792757292413",
-    "fullName": "Cidusface Ikpe Ugbe",
-    "regNumber": "HIIT/2026/001",
+    "id": "usr_std_1792850001396",
+    "fullName": "Ugbe Cidus",
+    "regNumber": "HIIT/2026/0014",
     "email": "cidusface@gmail.com",
-    "phone": "070213523111",
+    "phone": "08021353123",
     "password": "123456",
     "courseId": "crs_1792668616937",
     "courseTitle": "Python Programming",
     "batchId": "batch_1792668992547",
     "batchName": "Python_Oct_2026_Thurs_Fri",
     "status": "active",
-    "registeredAt": "2026-10-23T12:08:12.413Z"
+    "registeredAt": "2026-10-24T13:53:21.396Z"
+  },
+  {
+    "id": "usr_std_1792759249055",
+    "fullName": "Godwin",
+    "regNumber": "HIIT/2026/002",
+    "email": "ugbegodwin7963@gmail1.com",
+    "phone": "09045321231",
+    "password": "123456",
+    "courseId": "crs_1792668616937",
+    "courseTitle": "Python Programming",
+    "batchId": "batch_1792668992547",
+    "batchName": "Python_Oct_2026_Thurs_Fri",
+    "status": "active",
+    "registeredAt": "2026-10-23T12:40:49.055Z"
   }
 ]

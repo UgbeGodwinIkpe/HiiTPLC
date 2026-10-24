@@ -224,7 +224,7 @@ export interface EmailConfig {
 
 export function parseFromHeader(rawFrom: string, fallbackEmail: string) {
   let senderName = 'HiiT Assessment Portal';
-  let senderEmail = fallbackEmail || 'portal@hiit.ng';
+  let senderEmail = fallbackEmail || 'cidusface@gmail.com';
 
   if (rawFrom) {
     const match = rawFrom.match(/^(.*?)\s*<(.+?)>$/);
@@ -249,7 +249,7 @@ export function getSmtpConfig(): EmailConfig {
   const resendApiKey = process.env.RESEND_API_KEY?.trim() || '';
 
   const smtpService = (process.env.SMTP_SERVICE || '').trim().toLowerCase();
-  const smtpUser = process.env.SMTP_USER?.trim() || '';
+  const smtpUser = process.env.SMTP_USER?.trim() || 'cidusface@gmail.com';
   const smtpPass = process.env.SMTP_PASS?.trim() || '';
   const isGmail = smtpService === 'gmail' || smtpUser.toLowerCase().includes('@gmail.com');
   const smtpHost = process.env.SMTP_HOST?.trim() || (isGmail ? 'smtp.gmail.com' : '');
@@ -262,9 +262,12 @@ export function getSmtpConfig(): EmailConfig {
   let maskedUser = '';
   if (brevoApiKey) {
     maskedUser = `Brevo API (${senderEmail || 'brevo-relay'})`;
+    console.log("Brevo API: ", Boolean(brevoApiKey),  maskedUser)
   } else if (resendApiKey) {
+    console.log("Resend API: ", Boolean(resendApiKey))
     maskedUser = `Resend API (${resendApiKey.slice(0, 6)}***)`;
   } else if (smtpUser) {
+    console.log("smtpUser: ", Boolean(smtpUser))
     const parts = smtpUser.split('@');
     if (parts.length === 2) {
       maskedUser = `${parts[0].slice(0, 3)}***@${parts[1]}`;
@@ -275,6 +278,8 @@ export function getSmtpConfig(): EmailConfig {
 
   // Priority 1: Brevo HTTP REST API (HTTPS port 443 - zero blocked ports on Render/cloud)
   if (brevoApiKey) {
+    maskedUser = `Brevo API (${senderEmail || 'brevo-relay'})`;
+    console.log("Brevo API: ", Boolean(brevoApiKey),  maskedUser)
     return {
       isConfigured: true,
       provider: 'brevo',
@@ -304,7 +309,7 @@ export function getSmtpConfig(): EmailConfig {
       smtpHost: 'api.resend.com (HTTPS Port 443)',
       smtpPort: 443,
       smtpSecure: true,
-      smtpUser: senderEmail || 'onboarding@resend.dev',
+      smtpUser: senderEmail || 'cidusface@gmail.com',
       smtpFrom: rawFrom || 'HiiT Assessment Portal <onboarding@resend.dev>',
       senderName,
       senderEmail,
@@ -381,6 +386,7 @@ async function sendViaBrevoApi(
   html: string,
   text: string
 ) {
+  console.log("Sender: ", sender, recipient)
   const response = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
     headers: {
@@ -484,6 +490,9 @@ export async function testSmtpConnection(targetEmail: string): Promise<{ success
   `;
 
   // Brevo HTTP
+  console.log("===============")
+  console.log("Provider", config.provider)
+  console.log("===============")
   if (config.provider === 'brevo') {
     try {
       const brevoKey = process.env.BREVO_API_KEY!.trim();
@@ -495,11 +504,22 @@ export async function testSmtpConnection(targetEmail: string): Promise<{ success
         html,
         text
       );
+      console.log("===============")
+      console.log("Sender: ", brevoKey,
+        { email: config.senderEmail, name: config.senderName },
+        { email: targetEmail, name: targetEmail.split('@')[0] })
+        
+      console.log("===============")
       return {
         success: true,
         message: `Test email successfully sent to ${targetEmail} via Brevo HTTP API (Port 443)!`
       };
     } catch (err: any) {
+      
+      console.log("Err started: ===============")
+      console.log(err)
+      
+      console.log("Err ended: ===============")
       return {
         success: false,
         message: `Brevo Delivery Error: ${err.message}`
@@ -563,6 +583,9 @@ export async function sendStudentCredentialsEmail(
   let deliveryDetails = '';
 
   if (config.isConfigured) {
+    console.log("===============")
+  console.log("Provider", config.provider)
+  console.log("===============")
     try {
       if (config.provider === 'brevo') {
         const brevoKey = process.env.BREVO_API_KEY!.trim();

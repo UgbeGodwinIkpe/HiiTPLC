@@ -1,5 +1,131 @@
 [
   {
+    "id": "log_1792850002104_s09c",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Live emailed credentials for Ugbe Cidus (HIIT/2026/0014) to cidusface@gmail.com [SENT]",
+    "timestamp": "2026-10-24T13:53:22.104Z"
+  },
+  {
+    "id": "log_1792850001400_ovza",
+    "userId": "usr_inst_1",
+    "userName": "Instructor",
+    "userRole": "instructor",
+    "action": "STUDENT_ADDED",
+    "details": "Enrolled student Ugbe Cidus (HIIT/2026/0014)",
+    "timestamp": "2026-10-24T13:53:21.400Z"
+  },
+  {
+    "id": "log_1792849002900_wjmp",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Live emailed credentials for Ikpe Ugbe (HiiT/2026/011) to cidusface@gmail.com [SENT]",
+    "timestamp": "2026-10-24T13:36:42.900Z"
+  },
+  {
+    "id": "log_1792849001937_bdg8",
+    "userId": "usr_inst_1",
+    "userName": "Instructor",
+    "userRole": "instructor",
+    "action": "STUDENT_ADDED",
+    "details": "Enrolled student Ikpe Ugbe (HiiT/2026/011)",
+    "timestamp": "2026-10-24T13:36:41.937Z"
+  },
+  {
+    "id": "log_1792847683216_dhu4",
+    "userId": "usr_coord_godwin",
+    "userName": "Godwin Ugbe",
+    "userRole": "coordinator",
+    "action": "USER_LOGIN",
+    "details": "COORDINATOR logged in: ugbegodwin7963@gmail.com",
+    "timestamp": "2026-10-24T13:14:43.216Z"
+  },
+  {
+    "id": "log_1792846821654_nsj5",
+    "userId": "usr_coord_godwin",
+    "userName": "Godwin Ugbe",
+    "userRole": "coordinator",
+    "action": "USER_LOGIN",
+    "details": "COORDINATOR logged in: ugbegodwin7963@gmail.com",
+    "timestamp": "2026-10-24T13:00:21.654Z"
+  },
+  {
+    "id": "log_1792759250149_elfl",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Live emailed credentials for Godwin (HIIT/2026/002) to ugbegodwin7963@gmail.com [SENT]",
+    "timestamp": "2026-10-23T12:40:50.149Z"
+  },
+  {
+    "id": "log_1792759249059_dn28",
+    "userId": "usr_inst_1",
+    "userName": "Instructor",
+    "userRole": "instructor",
+    "action": "STUDENT_ADDED",
+    "details": "Enrolled student Godwin (HIIT/2026/002)",
+    "timestamp": "2026-10-23T12:40:49.059Z"
+  },
+  {
+    "id": "log_1792759149329_dnhk",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Live emailed credentials for Jones (HIIT/2026/001) to joneshavilah@gmail.com [SENT]",
+    "timestamp": "2026-10-23T12:39:09.329Z"
+  },
+  {
+    "id": "log_1792758990717_z59d",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Live emailed credentials for Jones (HIIT/2026/001) to joneshavilah@gmail.com [SENT]",
+    "timestamp": "2026-10-23T12:36:30.717Z"
+  },
+  {
+    "id": "log_1792758989498_u7em",
+    "userId": "usr_inst_1",
+    "userName": "Instructor",
+    "userRole": "instructor",
+    "action": "STUDENT_ADDED",
+    "details": "Enrolled student Jones (HIIT/2026/001)",
+    "timestamp": "2026-10-23T12:36:29.498Z"
+  },
+  {
+    "id": "log_1792758257510_fzuo",
+    "userId": "system_mail",
+    "userName": "Email Dispatcher",
+    "userRole": "coordinator",
+    "action": "EMAIL_CREDENTIALS_SENT",
+    "details": "Live emailed credentials for Godwin Ugbe (HIIT/2026/002) to joneshavilah@gmail.com [SENT]",
+    "timestamp": "2026-10-23T12:24:17.510Z"
+  },
+  {
+    "id": "log_1792758255180_b9kx",
+    "userId": "usr_inst_1",
+    "userName": "Instructor",
+    "userRole": "instructor",
+    "action": "STUDENT_ADDED",
+    "details": "Enrolled student Godwin Ugbe (HIIT/2026/002)",
+    "timestamp": "2026-10-23T12:24:15.180Z"
+  },
+  {
+    "id": "log_1792758158815_zyz7",
+    "userId": "usr_coord_godwin",
+    "userName": "Godwin Ugbe",
+    "userRole": "coordinator",
+    "action": "USER_LOGIN",
+    "details": "COORDINATOR logged in: ugbegodwin7963@gmail.com",
+    "timestamp": "2026-10-23T12:22:38.815Z"
+  },
+  {
     "id": "log_1792757295827_8ezw",
     "userId": "system_mail",
     "userName": "Email Dispatcher",
