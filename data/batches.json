@@ -25,7 +25,7 @@
   },
   {
     "id": "batch_django_1",
-    "name": "2026-B1 Abuja Evening (Python - Django)",
+    "name": "2026-B1 Abuja Afternoon (Python - Django)",
     "courseId": "crs_python_django",
     "courseTitle": "Python - Django",
     "instructorId": "usr_inst_godwin",
@@ -37,7 +37,7 @@
   },
   {
     "id": "batch_da_1",
-    "name": "2026-B1 Abuja Afternoon (Data Analysis)",
+    "name": "2026-B1 Abuja Morning (Data Analysis)",
     "courseId": "crs_data_analysis",
     "courseTitle": "Data Analysis",
     "instructorId": "usr_inst_ebuka",
@@ -61,7 +61,7 @@
   },
   {
     "id": "batch_ceh_1",
-    "name": "2026-B1 Abuja Evening (CEH)",
+    "name": "2026-B1 Abuja Afternoon (CEH)",
     "courseId": "crs_ceh",
     "courseTitle": "CEH",
     "instructorId": "usr_inst_emmanuel",
@@ -70,29 +70,5 @@
     "endDate": "2026-06-01",
     "status": "active",
     "studentCount": 1
-  },
-  {
-    "id": "batch_dita_1",
-    "name": "2026-B1 Abuja Morning (DITA)",
-    "courseId": "crs_dita",
-    "courseTitle": "Diploma in Information Technology Applications",
-    "instructorId": "usr_inst_godwin",
-    "instructorName": "Godwin Ugbe, CPN, CSE",
-    "startDate": "2026-02-01",
-    "endDate": "2026-06-01",
-    "status": "active",
-    "studentCount": 1
-  },
-  {
-    "id": "batch_dita_2",
-    "name": "2026-B2 Abuja Afternoon (DITA)",
-    "courseId": "crs_dita",
-    "courseTitle": "Diploma in Information Technology Applications",
-    "instructorId": "usr_inst_bright",
-    "instructorName": "Mr. Bright",
-    "startDate": "2026-02-15",
-    "endDate": "2026-06-15",
-    "status": "active",
-    "studentCount": 0
   }
 ]
