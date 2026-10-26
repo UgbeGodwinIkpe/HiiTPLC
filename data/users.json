@@ -94,106 +94,11 @@
   {
     "id": "usr_reg_1",
     "name": "Mrs. Amina Yusuf",
-    "email": "registrar@hiit.ng",
+    "email": "htidef@hiitplc.com",
     "role": "registrar",
+    "password": "123456",
     "phone": "+234 801 222 3344",
     "status": "active",
     "createdAt": "2026-01-05T08:00:00Z"
-  },
-  {
-    "id": "usr_std_1",
-    "name": "Aisha Abubakar",
-    "email": "aisha.a@gmail.com",
-    "role": "student",
-    "regNumber": "HIIT/2026/001",
-    "phone": "+234 812 345 6789",
-    "assignedCourseIds": [
-      "crs_fswd"
-    ],
-    "assignedBatchIds": [
-      "batch_fswd_1"
-    ],
-    "status": "active",
-    "createdAt": "2026-02-10T14:00:00Z"
-  },
-  {
-    "id": "usr_std_2",
-    "name": "Daniel Okon",
-    "email": "daniel.okon@yahoo.com",
-    "role": "student",
-    "regNumber": "HIIT/2026/002",
-    "phone": "+234 813 456 7890",
-    "assignedCourseIds": [
-      "crs_fswd"
-    ],
-    "assignedBatchIds": [
-      "batch_fswd_1"
-    ],
-    "status": "active",
-    "createdAt": "2026-02-10T14:15:00Z"
-  },
-  {
-    "id": "usr_std_3",
-    "name": "Grace Chukwu",
-    "email": "grace.c@outlook.com",
-    "role": "student",
-    "regNumber": "HIIT/2026/003",
-    "phone": "+234 814 567 8901",
-    "assignedCourseIds": [
-      "crs_data_analysis"
-    ],
-    "assignedBatchIds": [
-      "batch_da_1"
-    ],
-    "status": "active",
-    "createdAt": "2026-02-12T09:00:00Z"
-  },
-  {
-    "id": "usr_std_4",
-    "name": "Ibrahim Musa",
-    "email": "ibrahim.m@hiit.ng",
-    "role": "student",
-    "regNumber": "HIIT/2026/004",
-    "phone": "+234 815 678 9012",
-    "assignedCourseIds": [
-      "crs_ceh"
-    ],
-    "assignedBatchIds": [
-      "batch_ceh_1"
-    ],
-    "status": "active",
-    "createdAt": "2026-02-15T10:30:00Z"
-  },
-  {
-    "id": "usr_std_5",
-    "name": "Blessing Adebayo",
-    "email": "blessing.a@gmail.com",
-    "role": "student",
-    "regNumber": "HIIT/2026/005",
-    "phone": "+234 816 789 0123",
-    "assignedCourseIds": [
-      "crs_python"
-    ],
-    "assignedBatchIds": [
-      "batch_py_1"
-    ],
-    "status": "active",
-    "createdAt": "2026-02-16T11:20:00Z"
-  },
-  {
-    "id": "usr_std_1792486340113",
-    "name": "Zainab Aliyu",
-    "email": "zainab.aliyu@example.com",
-    "role": "student",
-    "regNumber": "HIIT/2026/007",
-    "phone": "",
-    "assignedCourseIds": [
-      "crs_dita"
-    ],
-    "assignedBatchIds": [
-      "batch_dita_1"
-    ],
-    "status": "active",
-    "createdAt": "2026-10-20T08:52:20.113Z"
   }
 ]
