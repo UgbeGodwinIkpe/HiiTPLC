@@ -1,28 +1,16 @@
 [
   {
     "id": "att_sess_1",
-    "courseId": "crs_1",
-    "courseTitle": "Full Stack Software Engineering (Python & React)",
-    "courseCode": "SE-301",
-    "batchId": "batch_1",
-    "batchName": "2026-B1 Abuja Morning (Software Eng)",
-    "instructorId": "usr_inst_1",
-    "instructorName": "Dr. Emmanuel Okafor",
-    "date": "2026-07-28",
-    "topic": "Lecture 1: Full Stack System Architecture & Docker Setup",
+    "courseId": "crs_python",
+    "courseTitle": "Python Programming",
+    "courseCode": "PY-101",
+    "batchId": "batch_py_1",
+    "batchName": "2026-B1 Abuja Morning (Python Programming)",
+    "instructorId": "usr_inst_godwin",
+    "instructorName": "Godwin Ugbe, CPN, CSE",
+    "date": "2026-10-26",
+    "topic": "Python Syntax, Variables & Control Flow",
     "records": [
-      {
-        "studentId": "usr_std_1",
-        "studentRegNumber": "HIIT/2026/001",
-        "studentName": "Aisha Abubakar",
-        "status": "present"
-      },
-      {
-        "studentId": "usr_std_2",
-        "studentRegNumber": "HIIT/2026/002",
-        "studentName": "Daniel Okon",
-        "status": "present"
-      },
       {
         "studentId": "usr_std_5",
         "studentRegNumber": "HIIT/2026/005",
@@ -30,34 +18,21 @@
         "status": "present"
       }
     ],
-    "createdAt": "2026-07-28T10:00:00Z",
-    "updatedAt": "2026-07-28T10:00:00Z"
+    "createdAt": "2026-10-26T10:00:00Z",
+    "updatedAt": "2026-10-26T10:00:00Z"
   },
   {
     "id": "att_sess_2",
-    "courseId": "crs_1",
-    "courseTitle": "Full Stack Software Engineering (Python & React)",
-    "courseCode": "SE-301",
-    "batchId": "batch_1",
-    "batchName": "2026-B1 Abuja Morning (Software Eng)",
-    "instructorId": "usr_inst_1",
-    "instructorName": "Dr. Emmanuel Okafor",
-    "date": "2026-07-30",
-    "topic": "Lecture 2: React Component Hierarchy & State Hooks",
+    "courseId": "crs_python",
+    "courseTitle": "Python Programming",
+    "courseCode": "PY-101",
+    "batchId": "batch_py_1",
+    "batchName": "2026-B1 Abuja Morning (Python Programming)",
+    "instructorId": "usr_inst_godwin",
+    "instructorName": "Godwin Ugbe, CPN, CSE",
+    "date": "2026-10-30",
+    "topic": "Data Structures & Functions",
     "records": [
-      {
-        "studentId": "usr_std_1",
-        "studentRegNumber": "HIIT/2026/001",
-        "studentName": "Aisha Abubakar",
-        "status": "present"
-      },
-      {
-        "studentId": "usr_std_2",
-        "studentRegNumber": "HIIT/2026/002",
-        "studentName": "Daniel Okon",
-        "status": "late",
-        "remarks": "Joined 15 mins late due to traffic"
-      },
       {
         "studentId": "usr_std_5",
         "studentRegNumber": "HIIT/2026/005",
@@ -65,20 +40,20 @@
         "status": "present"
       }
     ],
-    "createdAt": "2026-07-30T10:00:00Z",
-    "updatedAt": "2026-07-30T10:00:00Z"
+    "createdAt": "2026-10-30T10:00:00Z",
+    "updatedAt": "2026-10-30T10:00:00Z"
   },
   {
     "id": "att_sess_3",
-    "courseId": "crs_1",
-    "courseTitle": "Full Stack Software Engineering (Python & React)",
-    "courseCode": "SE-301",
-    "batchId": "batch_1",
-    "batchName": "2026-B1 Abuja Morning (Software Eng)",
-    "instructorId": "usr_inst_1",
-    "instructorName": "Dr. Emmanuel Okafor",
-    "date": "2026-08-01",
-    "topic": "Lecture 3: Django REST Framework Models & Serializers",
+    "courseId": "crs_fswd",
+    "courseTitle": "Full-Stack Web Development",
+    "courseCode": "FSWD-101",
+    "batchId": "batch_fswd_1",
+    "batchName": "2026-B1 Abuja Morning (Full-Stack Web Dev)",
+    "instructorId": "usr_inst_bright",
+    "instructorName": "Mr. Bright",
+    "date": "2026-10-26",
+    "topic": "Frontend Component Hierarchy & State Management",
     "records": [
       {
         "studentId": "usr_std_1",
@@ -90,30 +65,23 @@
         "studentId": "usr_std_2",
         "studentRegNumber": "HIIT/2026/002",
         "studentName": "Daniel Okon",
-        "status": "absent",
-        "remarks": "Unexcused absence"
-      },
-      {
-        "studentId": "usr_std_5",
-        "studentRegNumber": "HIIT/2026/005",
-        "studentName": "Blessing Adebayo",
         "status": "present"
       }
     ],
-    "createdAt": "2026-08-01T10:00:00Z",
-    "updatedAt": "2026-08-01T10:00:00Z"
+    "createdAt": "2026-10-26T09:00:00Z",
+    "updatedAt": "2026-10-26T09:00:00Z"
   },
   {
     "id": "att_sess_4",
-    "courseId": "crs_2",
-    "courseTitle": "Data Science & Artificial Intelligence",
-    "courseCode": "DS-401",
-    "batchId": "batch_2",
-    "batchName": "2026-B1 Abuja Afternoon (Data Science)",
-    "instructorId": "usr_inst_2",
-    "instructorName": "Engr. Fatima Bello",
-    "date": "2026-07-29",
-    "topic": "Lecture 1: Python Data Science Ecosystem & NumPy Arrays",
+    "courseId": "crs_data_analysis",
+    "courseTitle": "Data Analysis",
+    "courseCode": "DA-101",
+    "batchId": "batch_da_1",
+    "batchName": "2026-B1 Abuja Afternoon (Data Analysis)",
+    "instructorId": "usr_inst_ebuka",
+    "instructorName": "Mr. Ebuka Godday",
+    "date": "2026-10-27",
+    "topic": "Exploratory Data Analysis with Pandas & Seaborn",
     "records": [
       {
         "studentId": "usr_std_3",
@@ -122,20 +90,20 @@
         "status": "present"
       }
     ],
-    "createdAt": "2026-07-29T14:00:00Z",
-    "updatedAt": "2026-07-29T14:00:00Z"
+    "createdAt": "2026-10-27T14:00:00Z",
+    "updatedAt": "2026-10-27T14:00:00Z"
   },
   {
     "id": "att_sess_5",
-    "courseId": "crs_3",
-    "courseTitle": "Cybersecurity & Ethical Hacking Specialist",
-    "courseCode": "CYBER-201",
-    "batchId": "batch_3",
-    "batchName": "2026-B2 Abuja Evening (Cybersecurity)",
-    "instructorId": "usr_inst_3",
-    "instructorName": "Mr. Chidubem Nnamdi",
-    "date": "2026-07-31",
-    "topic": "Lecture 1: Network Reconnaissance & Port Scanning Tools",
+    "courseId": "crs_ceh",
+    "courseTitle": "CEH",
+    "courseCode": "CEH-301",
+    "batchId": "batch_ceh_1",
+    "batchName": "2026-B1 Abuja Evening (CEH)",
+    "instructorId": "usr_inst_emmanuel",
+    "instructorName": "Mr. Emmanuel",
+    "date": "2026-10-28",
+    "topic": "Network Footprinting & Reconnaissance Techniques",
     "records": [
       {
         "studentId": "usr_std_4",
@@ -144,7 +112,29 @@
         "status": "present"
       }
     ],
-    "createdAt": "2026-07-31T17:00:00Z",
-    "updatedAt": "2026-07-31T17:00:00Z"
+    "createdAt": "2026-10-28T17:00:00Z",
+    "updatedAt": "2026-10-28T17:00:00Z"
+  },
+  {
+    "id": "att_sess_6",
+    "courseId": "crs_dita",
+    "courseTitle": "Diploma in Information Technology Applications",
+    "courseCode": "DITA-101",
+    "batchId": "batch_dita_1",
+    "batchName": "2026-B1 Abuja Morning (DITA)",
+    "instructorId": "usr_inst_godwin",
+    "instructorName": "Godwin Ugbe, CPN, CSE",
+    "date": "2026-10-29",
+    "topic": "Advanced Spreadsheet Modeling & Formulas",
+    "records": [
+      {
+        "studentId": "usr_std_1792486340113",
+        "studentRegNumber": "HIIT/2026/007",
+        "studentName": "Zainab Aliyu",
+        "status": "present"
+      }
+    ],
+    "createdAt": "2026-10-29T10:00:00Z",
+    "updatedAt": "2026-10-29T10:00:00Z"
   }
 ]

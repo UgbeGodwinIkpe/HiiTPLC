@@ -367,6 +367,358 @@ export const exportSingleSessionAttendanceCSV = (session: any) => {
   exportToCSV(exportData, `HiiT_Attendance_${safeTopic}_${session.date}`);
 };
 
+// =========================================================================
+// WEEKLY ATTENDANCE REGISTER EXPORTS (HAB FORMAT MATCHING TEMPLATE)
+// =========================================================================
+
+export const formatRegisterDate = (dateStr: string): string => {
+  if (!dateStr) return '';
+  const parts = dateStr.split('-');
+  if (parts.length === 3) {
+    const year = parts[0].slice(-2);
+    const monthIdx = parseInt(parts[1], 10) - 1;
+    const day = parseInt(parts[2], 10);
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    if (monthIdx >= 0 && monthIdx < 12) {
+      return `${day}-${months[monthIdx]}-${year}`;
+    }
+  }
+  const d = new Date(dateStr + 'T00:00:00');
+  if (isNaN(d.getTime())) return dateStr;
+  const day = d.getDate();
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return `${day}-${months[d.getMonth()]}-${String(d.getFullYear()).slice(-2)}`;
+};
+
+export const getWeekRange = (dateStr: string): { startDate: string; endDate: string; label: string } => {
+  const d = new Date(dateStr + 'T00:00:00');
+  const day = d.getDay(); // 0 is Sunday, 1 is Monday
+  const diffToMonday = day === 0 ? -6 : 1 - day;
+  const monday = new Date(d);
+  monday.setDate(d.getDate() + diffToMonday);
+
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+
+  const startIso = monday.toISOString().slice(0, 10);
+  const endIso = sunday.toISOString().slice(0, 10);
+
+  return {
+    startDate: startIso,
+    endDate: endIso,
+    label: `${formatRegisterDate(startIso)} to ${formatRegisterDate(endIso)}`
+  };
+};
+
+export interface WeeklySessionColumn {
+  date: string;
+  displayDate: string;
+  topic?: string;
+  sessionId?: string;
+}
+
+export interface WeeklyAttendanceExportParams {
+  courseTitle: string;
+  courseCode?: string;
+  batchName?: string;
+  weekLabel: string;
+  startDate?: string;
+  endDate?: string;
+  sessionColumns: WeeklySessionColumn[];
+  sessions: {
+    id: string;
+    date: string;
+    topic: string;
+    records: {
+      studentId: string;
+      studentRegNumber: string;
+      studentName: string;
+      status: 'present' | 'absent' | 'late' | 'excused';
+      remarks?: string;
+    }[];
+  }[];
+  students: {
+    id: string;
+    fullName: string;
+    regNumber: string;
+  }[];
+}
+
+export const exportWeeklyAttendancePDF = (params: WeeklyAttendanceExportParams) => {
+  const { courseTitle, courseCode, batchName, weekLabel, sessionColumns, students, sessions } = params;
+  const doc = new jsPDF('landscape');
+
+  const courseDisplayName = courseCode ? `${courseCode}: ${courseTitle}` : courseTitle;
+
+  // Header Title matching Attached PDF
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(0, 43, 73); // HiiT Navy
+  doc.text('HiiT PLC', 14, 13);
+
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(0, 43, 73);
+  doc.text('HAB STUDENTS CLASS ATTENDANCE REGISTER', 14, 20);
+
+  // COURSE: PYTHON (Bold blue like in attached template)
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(0, 51, 153); // Blue
+  doc.text(`COURSE: ${courseDisplayName.toUpperCase()}`, 14, 27);
+
+  // Week and Batch metadata
+  doc.setFontSize(8.5);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(71, 85, 105);
+  doc.text(`Week: ${weekLabel}   |   Batch: ${batchName || 'All Batches'}   |   Enrolled: ${students.length} Students`, 14, 33);
+
+  // Construct Multi-row Headers
+  // Row 1: S/N, STUDENT NAME, REG NUMBER, [Date 1], [Date 2]..., TOTAL PRESENT, TOTAL ABSENT, % ATTEND
+  // Row 2: Under each date, 'Remark'
+  const headerRow1: any[] = [
+    { content: 'S/N', rowSpan: 2, styles: { valign: 'middle', halign: 'center', cellWidth: 12 } },
+    { content: 'STUDENT NAME', rowSpan: 2, styles: { valign: 'middle', cellWidth: 50 } },
+    { content: 'REG NUMBER', rowSpan: 2, styles: { valign: 'middle', halign: 'center', cellWidth: 32 } }
+  ];
+
+  sessionColumns.forEach((col) => {
+    headerRow1.push({
+      content: col.displayDate,
+      colSpan: 1,
+      styles: { halign: 'center', fontStyle: 'bold' }
+    });
+  });
+
+  headerRow1.push(
+    { content: 'PRESENT', rowSpan: 2, styles: { valign: 'middle', halign: 'center', cellWidth: 20 } },
+    { content: 'ABSENT', rowSpan: 2, styles: { valign: 'middle', halign: 'center', cellWidth: 18 } },
+    { content: '% ATTEND', rowSpan: 2, styles: { valign: 'middle', halign: 'center', cellWidth: 20 } }
+  );
+
+  const headerRow2: any[] = sessionColumns.map(() => ({
+    content: 'Remark',
+    styles: { halign: 'center', fontStyle: 'bold' }
+  }));
+
+  const tableBody: any[] = students.map((s, idx) => {
+    let presentCount = 0;
+    let absentCount = 0;
+    let evaluatedSessions = 0;
+
+    const dateRemarks = sessionColumns.map((col) => {
+      const sess = sessions.find((sn) => sn.date === col.date);
+      if (!sess) return '-';
+      const rec = sess.records.find((r) => r.studentId === s.id || r.studentRegNumber === s.regNumber);
+      if (!rec) return '-';
+
+      evaluatedSessions++;
+      if (rec.status === 'present') {
+        presentCount++;
+        return rec.remarks ? `Present\n(${rec.remarks})` : 'Present';
+      }
+      if (rec.status === 'late') {
+        presentCount++;
+        return rec.remarks ? `Late\n(${rec.remarks})` : 'Late';
+      }
+      if (rec.status === 'absent') {
+        absentCount++;
+        return rec.remarks ? `Absent\n(${rec.remarks})` : 'Absent';
+      }
+      if (rec.status === 'excused') {
+        return rec.remarks ? `Excused\n(${rec.remarks})` : 'Excused';
+      }
+      return 'N/A';
+    });
+
+    const pct = evaluatedSessions > 0 ? `${Math.round((presentCount / evaluatedSessions) * 100)}%` : '0%';
+
+    return [
+      idx + 1,
+      s.fullName,
+      s.regNumber,
+      ...dateRemarks,
+      presentCount,
+      absentCount,
+      pct
+    ];
+  });
+
+  autoTable(doc, {
+    startY: 37,
+    head: [headerRow1, headerRow2],
+    body: tableBody,
+    theme: 'grid',
+    headStyles: {
+      fillColor: [248, 250, 252],
+      textColor: [15, 23, 42],
+      fontStyle: 'bold',
+      lineWidth: 0.2,
+      lineColor: [30, 41, 59],
+      fontSize: 8.5
+    },
+    bodyStyles: {
+      textColor: [15, 23, 42],
+      fontSize: 8,
+      cellPadding: 2.5,
+      lineWidth: 0.1,
+      lineColor: [148, 163, 184]
+    },
+    alternateRowStyles: {
+      fillColor: [249, 250, 251]
+    },
+    styles: {
+      overflow: 'linebreak'
+    }
+  });
+
+  const finalY = (doc as any).lastAutoTable?.finalY || 165;
+  if (finalY < 185) {
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(71, 85, 105);
+    doc.text('Course Instructor Signature: ____________________________', 14, finalY + 12);
+    doc.text('Faculty Coordinator Signature: ____________________________', 160, finalY + 12);
+    doc.setFontSize(7);
+    doc.setTextColor(148, 163, 184);
+    doc.text(`HiiT PLC Abuja Training Centre • Official HAB Attendance Register • Generated on: ${new Date().toLocaleDateString()}`, 14, finalY + 19);
+  }
+
+  const safeCourse = courseTitle.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 25);
+  const safeWeek = weekLabel.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 20);
+  doc.save(`HiiT_Weekly_Attendance_${safeCourse}_${safeWeek}.pdf`);
+};
+
+export const exportWeeklyAttendanceExcel = (params: WeeklyAttendanceExportParams) => {
+  const { courseTitle, courseCode, batchName, weekLabel, sessionColumns, students, sessions } = params;
+  const courseDisplayName = courseCode ? `${courseCode}: ${courseTitle}` : courseTitle;
+  const totalCols = 3 + sessionColumns.length + 3;
+
+  const wsData: any[][] = [
+    ['HiiT PLC'],
+    ['HAB STUDENTS CLASS ATTENDANCE REGISTER'],
+    [`COURSE: ${courseDisplayName.toUpperCase()}`, '', '', `WEEK: ${weekLabel}`, '', `BATCH: ${batchName || 'ALL BATCHES'}`],
+    [],
+    ['S/N', 'STUDENT NAME', 'REG NUMBER', ...sessionColumns.map((c) => c.displayDate), 'TOTAL PRESENT', 'TOTAL ABSENT', '% ATTENDANCE'],
+    ['', '', '', ...sessionColumns.map(() => 'Remark'), '', '', '']
+  ];
+
+  students.forEach((s, idx) => {
+    let presentCount = 0;
+    let absentCount = 0;
+    let evaluatedSessions = 0;
+
+    const dateRemarks = sessionColumns.map((col) => {
+      const sess = sessions.find((sn) => sn.date === col.date);
+      if (!sess) return '-';
+      const rec = sess.records.find((r) => r.studentId === s.id || r.studentRegNumber === s.regNumber);
+      if (!rec) return '-';
+
+      evaluatedSessions++;
+      if (rec.status === 'present') {
+        presentCount++;
+        return rec.remarks ? `Present (${rec.remarks})` : 'Present';
+      }
+      if (rec.status === 'late') {
+        presentCount++;
+        return rec.remarks ? `Late: ${rec.remarks}` : 'Late';
+      }
+      if (rec.status === 'absent') {
+        absentCount++;
+        return rec.remarks ? `Absent (${rec.remarks})` : 'Absent';
+      }
+      if (rec.status === 'excused') {
+        return rec.remarks ? `Excused: ${rec.remarks}` : 'Excused';
+      }
+      return 'N/A';
+    });
+
+    const pct = evaluatedSessions > 0 ? `${Math.round((presentCount / evaluatedSessions) * 100)}%` : '0%';
+
+    wsData.push([
+      idx + 1,
+      s.fullName,
+      s.regNumber,
+      ...dateRemarks,
+      presentCount,
+      absentCount,
+      pct
+    ]);
+  });
+
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+  ws['!merges'] = [
+    { s: { r: 0, c: 0 }, e: { r: 0, c: totalCols - 1 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: totalCols - 1 } },
+    { s: { r: 4, c: 0 }, e: { r: 5, c: 0 } },
+    { s: { r: 4, c: 1 }, e: { r: 5, c: 1 } },
+    { s: { r: 4, c: 2 }, e: { r: 5, c: 2 } },
+    { s: { r: 4, c: 3 + sessionColumns.length }, e: { r: 5, c: 3 + sessionColumns.length } },
+    { s: { r: 4, c: 4 + sessionColumns.length }, e: { r: 5, c: 4 + sessionColumns.length } },
+    { s: { r: 4, c: 5 + sessionColumns.length }, e: { r: 5, c: 5 + sessionColumns.length } }
+  ];
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Attendance Register');
+
+  const safeCourse = courseTitle.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 25);
+  const safeWeek = weekLabel.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 20);
+  XLSX.writeFile(wb, `HiiT_Weekly_Attendance_${safeCourse}_${safeWeek}.xlsx`);
+};
+
+export const exportWeeklyAttendanceCSV = (params: WeeklyAttendanceExportParams) => {
+  const { courseTitle, courseCode, batchName, weekLabel, sessionColumns, students, sessions } = params;
+  const courseDisplayName = courseCode ? `${courseCode}: ${courseTitle}` : courseTitle;
+
+  const exportData = students.map((s, idx) => {
+    let presentCount = 0;
+    let absentCount = 0;
+    let evaluatedSessions = 0;
+
+    const row: any = {
+      'S/N': idx + 1,
+      'STUDENT NAME': s.fullName,
+      'REG NUMBER': s.regNumber
+    };
+
+    sessionColumns.forEach((col) => {
+      const sess = sessions.find((sn) => sn.date === col.date);
+      let remark = '-';
+      if (sess) {
+        const rec = sess.records.find((r) => r.studentId === s.id || r.studentRegNumber === s.regNumber);
+        if (rec) {
+          evaluatedSessions++;
+          if (rec.status === 'present') {
+            presentCount++;
+            remark = rec.remarks ? `Present (${rec.remarks})` : 'Present';
+          } else if (rec.status === 'late') {
+            presentCount++;
+            remark = rec.remarks ? `Late: ${rec.remarks}` : 'Late';
+          } else if (rec.status === 'absent') {
+            absentCount++;
+            remark = rec.remarks ? `Absent (${rec.remarks})` : 'Absent';
+          } else if (rec.status === 'excused') {
+            remark = rec.remarks ? `Excused: ${rec.remarks}` : 'Excused';
+          } else {
+            remark = 'N/A';
+          }
+        }
+      }
+      row[`${col.displayDate} (Remark)`] = remark;
+    });
+
+    row['TOTAL PRESENT'] = presentCount;
+    row['TOTAL ABSENT'] = absentCount;
+    row['% ATTENDANCE'] = evaluatedSessions > 0 ? `${Math.round((presentCount / evaluatedSessions) * 100)}%` : '0%';
+
+    return row;
+  });
+
+  const safeCourse = courseTitle.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 25);
+  const safeWeek = weekLabel.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 20);
+  exportToCSV(exportData, `HiiT_Weekly_Attendance_${safeCourse}_${safeWeek}`);
+};
+
 export const exportCourseResultsPDF = (
   courseTitle: string,
   courseCode: string,

@@ -1,3 +1,132 @@
 [
-  
+  {
+    "id": "ex_1",
+    "title": "Full-Stack Web Development Mid-Term CBT Examination",
+    "courseId": "crs_fswd",
+    "courseTitle": "Full-Stack Web Development",
+    "batchId": "batch_fswd_1",
+    "batchName": "2026-B1 Abuja Morning (Full-Stack Web Dev)",
+    "instructorId": "usr_inst_bright",
+    "instructorName": "Mr. Bright",
+    "durationMinutes": 15,
+    "passingScorePercent": 60,
+    "instructions": "1. Read all questions carefully before selecting your option.\n2. You can navigate back and forth between questions.\n3. Every answer saves automatically.\n4. Ensure you click Submit Exam before time expires.",
+    "questionIds": [
+      "q_1",
+      "q_2",
+      "q_3"
+    ],
+    "totalMarks": 15,
+    "shuffleQuestions": true,
+    "shuffleOptions": true,
+    "status": "published",
+    "createdAt": "2026-02-12T10:00:00Z"
+  },
+  {
+    "id": "ex_2",
+    "title": "Data Analysis Practical CBT Test",
+    "courseId": "crs_data_analysis",
+    "courseTitle": "Data Analysis",
+    "batchId": "batch_da_1",
+    "batchName": "2026-B1 Abuja Afternoon (Data Analysis)",
+    "instructorId": "usr_inst_ebuka",
+    "instructorName": "Mr. Ebuka Godday",
+    "durationMinutes": 20,
+    "passingScorePercent": 65,
+    "instructions": "1. Test covers Pandas, data cleaning, and statistical distributions.\n2. Auto-grading will apply immediately upon submission.",
+    "questionIds": [
+      "q_7",
+      "q_8"
+    ],
+    "totalMarks": 10,
+    "shuffleQuestions": false,
+    "shuffleOptions": true,
+    "status": "published",
+    "createdAt": "2026-02-14T09:00:00Z"
+  },
+  {
+    "id": "ex_3",
+    "title": "CEH Ethical Hacking & Threat Assessment CBT",
+    "courseId": "crs_ceh",
+    "courseTitle": "CEH",
+    "batchId": "batch_ceh_1",
+    "batchName": "2026-B1 Abuja Evening (CEH)",
+    "instructorId": "usr_inst_emmanuel",
+    "instructorName": "Mr. Emmanuel",
+    "durationMinutes": 10,
+    "passingScorePercent": 70,
+    "instructions": "Complete all questions on web vulnerabilities, network defense, and ethical penetration testing.",
+    "questionIds": [
+      "q_9"
+    ],
+    "totalMarks": 5,
+    "shuffleQuestions": true,
+    "shuffleOptions": false,
+    "status": "published",
+    "createdAt": "2026-02-15T16:00:00Z"
+  },
+  {
+    "id": "ex_4",
+    "title": "Python Programming Fundamentals CBT Assessment",
+    "courseId": "crs_python",
+    "courseTitle": "Python Programming",
+    "batchId": "batch_py_1",
+    "batchName": "2026-B1 Abuja Morning (Python Programming)",
+    "instructorId": "usr_inst_godwin",
+    "instructorName": "Godwin Ugbe, CPN, CSE",
+    "durationMinutes": 15,
+    "passingScorePercent": 60,
+    "instructions": "Assessment covers basic syntax, functions, OOP, and data structures.",
+    "questionIds": [
+      "q_4",
+      "q_5"
+    ],
+    "totalMarks": 10,
+    "shuffleQuestions": true,
+    "shuffleOptions": true,
+    "status": "published",
+    "createdAt": "2026-02-16T10:00:00Z"
+  },
+  {
+    "id": "ex_5",
+    "title": "CCNA Network Fundamentals & Routing CBT",
+    "courseId": "crs_ccna",
+    "courseTitle": "CCNA",
+    "batchId": "batch_ccna_1",
+    "batchName": "2026-B1 Abuja Morning (CCNA)",
+    "instructorId": "usr_inst_emmanuel",
+    "instructorName": "Mr. Emmanuel",
+    "durationMinutes": 10,
+    "passingScorePercent": 70,
+    "instructions": "Test covers OSI layers, IP addressing, subnetting, and routing principles.",
+    "questionIds": [
+      "q_10"
+    ],
+    "totalMarks": 5,
+    "shuffleQuestions": true,
+    "shuffleOptions": true,
+    "status": "pending",
+    "createdAt": "2026-02-18T10:00:00Z"
+  },
+  {
+    "id": "ex_6",
+    "title": "Diploma in IT Applications (DITA) Mid-Term Assessment",
+    "courseId": "crs_dita",
+    "courseTitle": "Diploma in Information Technology Applications",
+    "batchId": "batch_dita_1",
+    "batchName": "2026-B1 Abuja Morning (DITA)",
+    "instructorId": "usr_inst_godwin",
+    "instructorName": "Godwin Ugbe, CPN, CSE",
+    "durationMinutes": 15,
+    "passingScorePercent": 60,
+    "instructions": "Covers Microsoft Office suites, Excel functions, computer operating systems, and workplace applications.",
+    "questionIds": [
+      "q_11"
+    ],
+    "totalMarks": 5,
+    "shuffleQuestions": true,
+    "shuffleOptions": true,
+    "status": "published",
+    "createdAt": "2026-02-20T10:00:00Z"
+  }
 ]

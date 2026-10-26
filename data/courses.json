@@ -1,11 +1,65 @@
 [
   {
-    "id": "crs_1792668616937",
-    "code": "PYP",
+    "id": "crs_fswd",
+    "code": "FSWD-101",
+    "title": "Full-Stack Web Development",
+    "description": "Complete full-stack development covering frontend UI with modern web technologies, backend server architecture, REST APIs, and database integration.",
+    "durationWeeks": 16,
+    "status": "active",
+    "createdAt": "2026-01-10T09:00:00Z"
+  },
+  {
+    "id": "crs_python",
+    "code": "PY-101",
     "title": "Python Programming",
-    "description": "Learn Python from scratch. No prior coding experience needed. Master Python fundamentals, data structures, functions, OOP, file handling, and build real projects ready for web development, data analysis, and automation.",
+    "description": "Foundational to advanced Python programming, procedural and object-oriented programming, standard libraries, data structures, and algorithms.",
     "durationWeeks": 8,
     "status": "active",
-    "createdAt": "2026-10-22T11:30:16.937Z"
+    "createdAt": "2026-01-12T09:00:00Z"
+  },
+  {
+    "id": "crs_ccna",
+    "code": "CCNA-201",
+    "title": "CCNA",
+    "description": "Cisco Certified Network Associate curriculum: network fundamentals, IP routing, switching, VLANs, subnetting, network security, and automation.",
+    "durationWeeks": 10,
+    "status": "active",
+    "createdAt": "2026-01-15T09:00:00Z"
+  },
+  {
+    "id": "crs_ceh",
+    "code": "CEH-301",
+    "title": "CEH",
+    "description": "Certified Ethical Hacker program covering ethical hacking phases, vulnerability analysis, system penetration testing, cryptography, and network defense.",
+    "durationWeeks": 12,
+    "status": "active",
+    "createdAt": "2026-01-18T09:00:00Z"
+  },
+  {
+    "id": "crs_data_analysis",
+    "code": "DA-101",
+    "title": "Data Analysis",
+    "description": "Practical data analysis, statistical methods, business intelligence reporting, Excel, SQL queries, Python data analytics, and Power BI dashboards.",
+    "durationWeeks": 12,
+    "status": "active",
+    "createdAt": "2026-01-20T09:00:00Z"
+  },
+  {
+    "id": "crs_python_django",
+    "code": "PY-DJ-201",
+    "title": "Python - Django",
+    "description": "Specialized web backend engineering using Python and the Django framework, MVT architecture, Django REST Framework, ORM, authentication, and deployment.",
+    "durationWeeks": 12,
+    "status": "active",
+    "createdAt": "2026-01-22T09:00:00Z"
+  },
+  {
+    "id": "crs_dita",
+    "code": "DITA-101",
+    "title": "Diploma in Information Technology Applications",
+    "description": "Comprehensive diploma program covering computer fundamentals, office productivity tools, business applications, internet technologies, and IT workplace skills.",
+    "durationWeeks": 16,
+    "status": "active",
+    "createdAt": "2026-01-25T09:00:00Z"
   }
 ]

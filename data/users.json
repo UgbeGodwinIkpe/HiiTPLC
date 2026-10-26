@@ -1,21 +1,7 @@
 [
   {
-    "id": "usr_inst_1792668851807",
-    "name": "Godwin Ugbe, CPN, CSE",
-    "email": "cidusface@gmail.com",
-    "role": "instructor",
-    "password": "123456",
-    "phone": "09166562432",
-    "assignedCourseIds": [
-      "crs_1792668616937"
-    ],
-    "assignedBatchIds": [],
-    "status": "active",
-    "createdAt": "2026-10-22T11:34:11.807Z"
-  },
-  {
     "id": "usr_coord_godwin",
-    "name": "Godwin Ugbe",
+    "name": "Godwin Ugbe, CPN, CSE",
     "email": "ugbegodwin7963@gmail.com",
     "role": "coordinator",
     "password": "hiit123",
@@ -34,50 +20,76 @@
     "createdAt": "2026-01-10T08:00:00Z"
   },
   {
-    "id": "usr_inst_1",
-    "name": "Dr. Emmanuel Okafor",
-    "email": "instructor.okafor@hiit.ng",
+    "id": "usr_inst_godwin",
+    "name": "Godwin Ugbe, CPN, CSE",
+    "email": "cidusface@gmail.com",
     "role": "instructor",
-    "phone": "+234 802 333 4455",
+    "password": "hiit123",
+    "phone": "+234 800 000 0000",
     "assignedCourseIds": [
-      "crs_1",
-      "crs_4"
+      "crs_python",
+      "crs_python_django",
+      "crs_dita"
     ],
     "assignedBatchIds": [
-      "batch_1"
+      "batch_py_1",
+      "batch_django_1",
+      "batch_dita_1"
     ],
     "status": "active",
-    "createdAt": "2026-01-15T09:30:00Z"
+    "createdAt": "2026-01-10T08:00:00Z"
   },
   {
-    "id": "usr_inst_2",
-    "name": "Engr. Fatima Bello",
-    "email": "instructor.fatima@hiit.ng",
+    "id": "usr_inst_bright",
+    "name": "Mr. Bright",
+    "email": "brightigiegba@gmail.com",
     "role": "instructor",
-    "phone": "+234 805 666 7788",
+    "password": "bright@12",
+    "phone": "+234 7015521828",
     "assignedCourseIds": [
-      "crs_2"
+      "crs_fswd",
+      "crs_dita"
     ],
     "assignedBatchIds": [
-      "batch_2"
+      "batch_fswd_1",
+      "batch_dita_2"
     ],
     "status": "active",
-    "createdAt": "2026-01-18T11:00:00Z"
+    "createdAt": "2026-01-12T08:00:00Z"
   },
   {
-    "id": "usr_inst_3",
-    "name": "Mr. Chidubem Nnamdi",
-    "email": "instructor.chidubem@hiit.ng",
+    "id": "usr_inst_ebuka",
+    "name": "Mr. Ebuka Godday",
+    "email": "ebusblessedluz@gmail.com",
     "role": "instructor",
-    "phone": "+234 809 999 0011",
+    "password": "ebuka@12",
+    "phone": "+234 912 313 5920",
     "assignedCourseIds": [
-      "crs_3"
+      "crs_data_analysis"
     ],
     "assignedBatchIds": [
-      "batch_3"
+      "batch_da_1"
     ],
     "status": "active",
-    "createdAt": "2026-02-01T10:00:00Z"
+    "createdAt": "2026-01-15T08:00:00Z"
+  },
+  {
+    "id": "usr_inst_emmanuel",
+    "name": "Mr. Emmanuel",
+    "email": "sevillaemmanuel11@gmail.com",
+    "role": "instructor",
+    "password": "emmanuel@12",
+    "phone": "+234 814 644 6861",
+    "assignedCourseIds": [
+      "crs_ceh",
+      "crs_ccna"
+    ],
+    "assignedBatchIds": [
+      "batch_ceh_1",
+      "batch_ccna_1"
+    ],
+    "status": "active",
+    "createdAt": "2026-01-18T08:00:00Z"
   },
   {
     "id": "usr_reg_1",
@@ -96,10 +108,10 @@
     "regNumber": "HIIT/2026/001",
     "phone": "+234 812 345 6789",
     "assignedCourseIds": [
-      "crs_1"
+      "crs_fswd"
     ],
     "assignedBatchIds": [
-      "batch_1"
+      "batch_fswd_1"
     ],
     "status": "active",
     "createdAt": "2026-02-10T14:00:00Z"
@@ -112,10 +124,10 @@
     "regNumber": "HIIT/2026/002",
     "phone": "+234 813 456 7890",
     "assignedCourseIds": [
-      "crs_1"
+      "crs_fswd"
     ],
     "assignedBatchIds": [
-      "batch_1"
+      "batch_fswd_1"
     ],
     "status": "active",
     "createdAt": "2026-02-10T14:15:00Z"
@@ -128,10 +140,10 @@
     "regNumber": "HIIT/2026/003",
     "phone": "+234 814 567 8901",
     "assignedCourseIds": [
-      "crs_2"
+      "crs_data_analysis"
     ],
     "assignedBatchIds": [
-      "batch_2"
+      "batch_da_1"
     ],
     "status": "active",
     "createdAt": "2026-02-12T09:00:00Z"
@@ -144,10 +156,10 @@
     "regNumber": "HIIT/2026/004",
     "phone": "+234 815 678 9012",
     "assignedCourseIds": [
-      "crs_3"
+      "crs_ceh"
     ],
     "assignedBatchIds": [
-      "batch_3"
+      "batch_ceh_1"
     ],
     "status": "active",
     "createdAt": "2026-02-15T10:30:00Z"
@@ -160,12 +172,28 @@
     "regNumber": "HIIT/2026/005",
     "phone": "+234 816 789 0123",
     "assignedCourseIds": [
-      "crs_1"
+      "crs_python"
     ],
     "assignedBatchIds": [
-      "batch_1"
+      "batch_py_1"
     ],
     "status": "active",
     "createdAt": "2026-02-16T11:20:00Z"
+  },
+  {
+    "id": "usr_std_1792486340113",
+    "name": "Zainab Aliyu",
+    "email": "zainab.aliyu@example.com",
+    "role": "student",
+    "regNumber": "HIIT/2026/007",
+    "phone": "",
+    "assignedCourseIds": [
+      "crs_dita"
+    ],
+    "assignedBatchIds": [
+      "batch_dita_1"
+    ],
+    "status": "active",
+    "createdAt": "2026-10-20T08:52:20.113Z"
   }
 ]

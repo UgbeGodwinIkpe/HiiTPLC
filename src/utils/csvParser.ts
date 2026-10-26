@@ -324,10 +324,10 @@ export function parseStudentCSV(
       regNumber: normalizedReg,
       email: generatedEmail,
       phone,
-      courseId: resolvedCourse ? resolvedCourse.id : 'crs_1',
-      courseTitle: resolvedCourse ? `${resolvedCourse.code} — ${resolvedCourse.title}` : 'General Course',
-      batchId: resolvedBatch ? resolvedBatch.id : 'batch_1',
-      batchName: resolvedBatch ? resolvedBatch.name : 'General Batch',
+      courseId: resolvedCourse ? resolvedCourse.id : (courses[0]?.id || 'crs_fswd'),
+      courseTitle: resolvedCourse ? `${resolvedCourse.code} — ${resolvedCourse.title}` : (courses[0]?.title || 'General Course'),
+      batchId: resolvedBatch ? resolvedBatch.id : (batches[0]?.id || 'batch_fswd_1'),
+      batchName: resolvedBatch ? resolvedBatch.name : (batches[0]?.name || 'General Batch'),
       isValid,
       validationErrors,
       isDuplicateInDb
@@ -382,8 +382,8 @@ function parseJsonStudents(
     const regNumber = String(item.regNumber || item.regNo || item.matricNo || '').trim().toUpperCase();
     const email = String(item.email || '').trim();
     const phone = String(item.phone || '').trim();
-    const courseId = item.courseId || fallbackCourse?.id || 'crs_1';
-    const batchId = item.batchId || fallbackBatch?.id || 'batch_1';
+    const courseId = item.courseId || fallbackCourse?.id || 'crs_fswd';
+    const batchId = item.batchId || fallbackBatch?.id || 'batch_fswd_1';
 
     const course = courses.find((c) => c.id === courseId) || fallbackCourse;
     const batch = batches.find((b) => b.id === batchId) || fallbackBatch;
@@ -415,9 +415,9 @@ function parseJsonStudents(
       regNumber,
       email: email || `${regNumber.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()}@student.hiit.ng`,
       phone,
-      courseId: course?.id || 'crs_1',
+      courseId: course?.id || 'crs_fswd',
       courseTitle: course ? `${course.code} — ${course.title}` : 'General Course',
-      batchId: batch?.id || 'batch_1',
+      batchId: batch?.id || 'batch_fswd_1',
       batchName: batch ? batch.name : 'General Batch',
       isValid,
       validationErrors,
