@@ -19,7 +19,7 @@
     "totalMarks": 15,
     "shuffleQuestions": true,
     "shuffleOptions": true,
-    "status": "published",
+    "status": "pending",
     "createdAt": "2026-02-12T10:00:00Z"
   },
   {
@@ -41,7 +41,7 @@
     "totalMarks": 10,
     "shuffleQuestions": false,
     "shuffleOptions": true,
-    "status": "published",
+    "status": "pending",
     "createdAt": "2026-02-14T09:00:00Z"
   },
   {
@@ -62,7 +62,7 @@
     "totalMarks": 5,
     "shuffleQuestions": true,
     "shuffleOptions": false,
-    "status": "published",
+    "status": "pending",
     "createdAt": "2026-02-15T16:00:00Z"
   },
   {
@@ -84,7 +84,7 @@
     "totalMarks": 10,
     "shuffleQuestions": true,
     "shuffleOptions": true,
-    "status": "published",
+    "status": "pending",
     "createdAt": "2026-02-16T10:00:00Z"
   },
   {
@@ -126,7 +126,7 @@
     "totalMarks": 5,
     "shuffleQuestions": true,
     "shuffleOptions": true,
-    "status": "published",
+    "status": "pending",
     "createdAt": "2026-02-20T10:00:00Z"
   }
 ]
