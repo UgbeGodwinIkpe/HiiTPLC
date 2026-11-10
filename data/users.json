@@ -4,7 +4,7 @@
     "name": "Godwin Ugbe, CPN, CSE",
     "email": "ugbegodwin7963@gmail.com",
     "role": "coordinator",
-    "password": "hiit123",
+    "password": "scrypt$61140cc5e2e55fe19014d655ac4b150c$6274a31d371441bcc3c91cbc34b2fb1cddba0bb6786ca63260de5c2b526023f797b47e60d8f1c4fd9308818a991cea02079df916c368f9f4894714f609f48555",
     "phone": "+234 800 000 0000",
     "status": "active",
     "createdAt": "2026-01-01T08:00:00Z"
@@ -14,7 +14,7 @@
     "name": "Prof. Adeleke Oladipo",
     "email": "coordinator@hiit.ng",
     "role": "coordinator",
-    "password": "hiit123",
+    "password": "scrypt$245d027ad9209ba460061192dbb050c9$5661689cbc520c746998c7117e8afe78a05323a7c17201f96bdd27937080073b84bbf9fb421a3aa4e0e60b5e324264653342e21a6aff6e9ce6e3a7e1788afdea",
     "phone": "+234 803 111 2233",
     "status": "active",
     "createdAt": "2026-01-10T08:00:00Z"
@@ -24,7 +24,7 @@
     "name": "Godwin Ugbe, CPN, CSE",
     "email": "cidusface@gmail.com",
     "role": "instructor",
-    "password": "hiit123",
+    "password": "scrypt$366567c3c4352244ee9f6012fe973a2d$6c36e7a5d28ba1f457a278d082751906b28d5adecfd9d5e4a4def8acacb5551fdca7e9a227d4a76b4a4234ab747ee9154603fc1ffcc014913cc6260aaadbf09f",
     "phone": "+234 800 000 0000",
     "assignedCourseIds": [
       "crs_python",
@@ -44,7 +44,7 @@
     "name": "Mr. Bright",
     "email": "brightigiegba@gmail.com",
     "role": "instructor",
-    "password": "bright@12",
+    "password": "scrypt$48a6897b9ba0909a915083fb50ab4561$b26ad6c3ca127efcd88a7a1a134df9cec620c5b0a15020584a5c19d2d9733ef100fc40aae0dcadf77e20fbd182efda00fa8a1b0f98dbf10761d2d6da0dca6abf",
     "phone": "+234 7015521828",
     "assignedCourseIds": [
       "crs_fswd",
@@ -62,7 +62,7 @@
     "name": "Mr. Ebuka Godday",
     "email": "ebusblessedluz@gmail.com",
     "role": "instructor",
-    "password": "ebuka@12",
+    "password": "scrypt$6a353c31fee10aaf8b8a943aefd4645f$c377f7fa74b89974b93b4c58154e2f88a27fcf19ef6c244c2a662be9d07a0cf50c54604c887c9006da307375f2165f2e1333a545fa5a82b222b3dadc2f690820",
     "phone": "+234 912 313 5920",
     "assignedCourseIds": [
       "crs_data_analysis"
@@ -78,7 +78,7 @@
     "name": "Mr. Emmanuel",
     "email": "sevillaemmanuel11@gmail.com",
     "role": "instructor",
-    "password": "emmanuel@12",
+    "password": "scrypt$04773c2abfa26ddeb6bf63e2e81db320$ba4c44479e24f55c54e22fdaac1f2e4590a8431c88e45215c1cf2be2161b5aec6cf5a174bfc93e517532bc61fa94abb1dc5cccb41114e4f9cec2e2d7bc3879af",
     "phone": "+234 814 644 6861",
     "assignedCourseIds": [
       "crs_ceh",
@@ -96,7 +96,7 @@
     "name": "Mrs. Amina Yusuf",
     "email": "htidef@hiitplc.com",
     "role": "registrar",
-    "password": "123456",
+    "password": "scrypt$ffeb3e9cc0ee0558b1cc7bce5655f76f$67ef7deb32313df4718aa3eef8e07edec410b7f7f5fd78e7e2000371c2d5c3aa7a832d93c9f4d584b80367d57a68a4a2c3bfad979a34b3e2f405989ee0949d32",
     "phone": "+234 801 222 3344",
     "status": "active",
     "createdAt": "2026-01-05T08:00:00Z"

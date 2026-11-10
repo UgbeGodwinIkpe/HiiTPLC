@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config({ override: true });
 import express from 'express';
+import { hashPassword, verifyPassword, issueToken, verifyToken } from './server/security';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
 import { jsonDb } from './src/data/jsonDb';
@@ -24,11 +25,84 @@ import {
 async function startServer() {
   const app = express();
   const PORT = Number(process.env.PORT || 3000);
+  if (!process.env.AUTH_SECRET || process.env.AUTH_SECRET.length < 32) {
+    throw new Error('AUTH_SECRET must be set to a random value of at least 32 characters.');
+  }
 
   // MongoDB must be ready before API routes begin serving requests.
   await jsonDb.initialize();
 
-  app.use(express.json({ limit: '50mb' }));
+  app.disable('x-powered-by');
+  app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    next();
+  });
+  app.use(express.json({ limit: '10mb' }));
+
+  const loginAttempts = new Map<string, { count: number; resetAt: number }>();
+  app.use('/api/auth/login', (req, res, next) => {
+    const key = req.ip || req.socket.remoteAddress || 'unknown';
+    const now = Date.now();
+    const current = loginAttempts.get(key);
+    if (current && current.resetAt > now && current.count >= 10) {
+      res.setHeader('Retry-After', String(Math.ceil((current.resetAt - now) / 1000)));
+      return res.status(429).json({ error: 'Too many login attempts. Please wait 15 minutes and try again.' });
+    }
+    const record = !current || current.resetAt <= now ? { count: 1, resetAt: now + 15 * 60 * 1000 } : { ...current, count: current.count + 1 };
+    loginAttempts.set(key, record);
+    next();
+  });
+
+  // Require a signed, expiring session for every API except health checks and login.
+  app.use('/api', (req, res, next) => {
+    if (req.path === '/health' || req.path === '/auth/login') return next();
+    const authorization = req.headers.authorization || '';
+    const token = authorization.startsWith('Bearer ') ? authorization.slice(7) : '';
+    const session = verifyToken(token);
+    if (!session) return res.status(401).json({ error: 'Your session is invalid or has expired. Please sign in again.' });
+    const account = session.role === 'student'
+      ? jsonDb.getStudents().find((item) => item.id === session.sub)
+      : jsonDb.getUsers().find((item) => item.id === session.sub);
+    if (!account || account.status !== 'active') return res.status(401).json({ error: 'This account is inactive or no longer exists. Please contact the administrator.' });
+    // Students can only access learning and their own CBT attempt endpoints.
+    if (session.role === 'student') {
+      const allowed = (req.method === 'GET' && ['/courses', '/batches', '/exams', '/questions', '/attempts'].includes(req.path)) ||
+        (req.method === 'POST' && (req.path === '/attempts/start' || /^\/attempts\/[^/]+\/(save|submit)$/.test(req.path)));
+      if (!allowed) return res.status(403).json({ error: 'You do not have permission to perform this action.' });
+    }
+    if (session.role !== 'coordinator') {
+      const coordinatorOnly = req.path.startsWith('/database') || req.path === '/seed/reset' ||
+        (req.path === '/settings' && req.method !== 'GET') || req.path.startsWith('/instructors');
+      if (coordinatorOnly) return res.status(403).json({ error: 'This action is restricted to the Faculty Coordinator.' });
+      if (session.role === 'registrar' && (req.path.startsWith('/questions') || req.path.startsWith('/exams'))) {
+        return res.status(403).json({ error: 'This action is restricted to instructors and the Faculty Coordinator.' });
+      }
+    }
+    (req as any).auth = session;
+    next();
+  });
+
+  // Never expose stored credentials through API responses.
+  app.use('/api', (_req, res, next) => {
+    const sendJson = res.json.bind(res);
+    res.json = ((body: any) => {
+      const redact = (value: any): any => {
+        if (Array.isArray(value)) return value.map(redact);
+        if (!value || typeof value !== 'object') return value;
+        const clean: any = {};
+        for (const [key, item] of Object.entries(value)) {
+          if (key.toLowerCase() === 'password' || key.toLowerCase() === 'passwordhash') continue;
+          clean[key] = redact(item);
+        }
+        return clean;
+      };
+      return sendJson(redact(body));
+    }) as any;
+    next();
+  });
 
   // Ensure queued MongoDB writes are committed before an API response is sent.
   app.use((req, res, next) => {
@@ -129,11 +203,12 @@ async function startServer() {
         return res.status(401).json({ error: 'Invalid Student Registration Number or Email.' });
       }
 
-      // Check student password (defaults to 'student123' if not explicitly configured)
+      // Existing legacy passwords are upgraded to a salted scrypt hash after successful login.
       const expectedPassword = student.password || 'student123';
-      if (password !== expectedPassword) {
+      if (!verifyPassword(password, student.password || expectedPassword)) {
         return res.status(401).json({ error: 'Incorrect Student Password. Please try again or contact your administrator.' });
       }
+      if (!student.password?.startsWith('scrypt$')) { student.password = hashPassword(password); jsonDb.saveStudents(students); }
 
       const userObj: User = {
         id: student.id,
@@ -149,29 +224,33 @@ async function startServer() {
       };
 
       jsonDb.addLog(userObj.id, userObj.name, 'student', 'USER_LOGIN', `Student logged in with Reg Number ${userObj.regNumber}`);
-      return res.json({ user: userObj, token: `jwt_student_${student.id}` });
+      loginAttempts.delete(req.ip || req.socket.remoteAddress || 'unknown');
+      return res.json({ user: userObj, token: issueToken(userObj) });
     } else {
       const users = jsonDb.getUsers();
       const user = users.find(
         (u) => u.email.trim().toLowerCase() === identifier.trim().toLowerCase()
       );
 
-      if (!user) {
-        return res.status(401).json({ error: 'Invalid Email address.' });
+      if (!user || user.role !== loginType) {
+        return res.status(401).json({ error: 'Invalid email address or selected login portal.' });
       }
 
       if (user.status === 'inactive') {
         return res.status(403).json({ error: 'Your account has been deactivated. Contact Faculty Coordinator.' });
       }
 
-      // Check staff/instructor password (defaults to 'hiit123' if not explicitly configured)
+      // Existing legacy passwords are upgraded to a salted scrypt hash after successful login.
       const expectedPassword = user.password || 'hiit123';
-      if (password !== expectedPassword) {
+      if (!verifyPassword(password, user.password || expectedPassword)) {
         return res.status(401).json({ error: 'Incorrect Password. Please check your credentials.' });
       }
+      if (!user.password?.startsWith('scrypt$')) { user.password = hashPassword(password); jsonDb.saveUsers(users); }
 
       jsonDb.addLog(user.id, user.name, user.role, 'USER_LOGIN', `${user.role.toUpperCase()} logged in: ${user.email}`);
-      return res.json({ user, token: `jwt_${user.role}_${user.id}` });
+      loginAttempts.delete(req.ip || req.socket.remoteAddress || 'unknown');
+      const safeUser = { ...user, password: undefined };
+      return res.json({ user: safeUser, token: issueToken(safeUser) });
     }
   });
 
@@ -270,7 +349,7 @@ async function startServer() {
       name,
       email,
       role: 'instructor',
-      password: password && password.trim() ? password.trim() : 'hiit123',
+      password: hashPassword(password && password.trim() ? password.trim() : 'hiit123'),
       phone: phone || '',
       assignedCourseIds: assignedCourseIds || [],
       assignedBatchIds: assignedBatchIds || [],
@@ -297,7 +376,7 @@ async function startServer() {
       name: name || users[idx].name,
       email: email || users[idx].email,
       phone: phone !== undefined ? phone : users[idx].phone,
-      password: password && password.trim() ? password.trim() : users[idx].password || 'hiit123',
+      password: password && password.trim() ? hashPassword(password.trim()) : users[idx].password || hashPassword('hiit123'),
       assignedCourseIds: assignedCourseIds || users[idx].assignedCourseIds,
       assignedBatchIds: assignedBatchIds || users[idx].assignedBatchIds,
       status: status || users[idx].status
@@ -315,7 +394,7 @@ async function startServer() {
     if (!inst) return res.status(404).json({ error: 'Instructor not found.' });
     
     const assignedPass = newPassword && newPassword.trim() ? newPassword.trim() : `hiit${Math.floor(1000 + Math.random() * 9000)}`;
-    inst.password = assignedPass;
+    inst.password = hashPassword(assignedPass);
     jsonDb.saveUsers(users);
 
     jsonDb.addLog('usr_coord_1', 'Faculty Coordinator', 'coordinator', 'PASSWORD_RESET', `Reset password for instructor ${inst.name}`);
@@ -487,7 +566,7 @@ async function startServer() {
       regNumber,
       email: studentEmail,
       phone: phone || '',
-      password: studentPassword,
+      password: hashPassword(studentPassword),
       courseId,
       courseTitle: course ? course.title : '',
       batchId,
@@ -550,7 +629,7 @@ async function startServer() {
       regNumber: regNumber || students[idx].regNumber,
       email: email || students[idx].email,
       phone: phone !== undefined ? phone : students[idx].phone,
-      password: password && password.trim() ? password.trim() : students[idx].password || 'student123',
+      password: password && password.trim() ? hashPassword(password.trim()) : students[idx].password || hashPassword('student123'),
       courseId: courseId || students[idx].courseId,
       courseTitle: course ? course.title : students[idx].courseTitle,
       batchId: batchId || students[idx].batchId,
@@ -570,7 +649,7 @@ async function startServer() {
     if (!student) return res.status(404).json({ error: 'Student not found.' });
 
     const assignedPass = newPassword && newPassword.trim() ? newPassword.trim() : `student${Math.floor(100 + Math.random() * 900)}`;
-    student.password = assignedPass;
+    student.password = hashPassword(assignedPass);
     jsonDb.saveStudents(students);
 
     jsonDb.addLog('usr_inst_1', 'Instructor', 'instructor', 'STUDENT_PASSWORD_RESET', `Reset password for student ${student.fullName} (${student.regNumber})`);
@@ -613,12 +692,12 @@ async function startServer() {
     const student = students.find((s) => s.id === id);
     if (!student) return res.status(404).json({ error: 'Student not found.' });
 
-    if (customPassword && customPassword.trim()) {
-      student.password = customPassword.trim();
-      jsonDb.saveStudents(students);
+    if (!customPassword || !customPassword.trim()) {
+      return res.status(400).json({ error: 'Enter a new temporary password before sending credentials. Existing passwords cannot be recovered.' });
     }
-
-    const currentPass = student.password || 'student123';
+    const currentPass = customPassword.trim();
+    student.password = hashPassword(currentPass);
+    jsonDb.saveStudents(students);
 
     try {
       const emailRecord = await sendStudentCredentialsEmail(
@@ -657,7 +736,7 @@ async function startServer() {
     const courses = jsonDb.getCourses();
     const batches = jsonDb.getBatches();
     let addedCount = 0;
-    const newStudentsToEmail: StudentProfile[] = [];
+    const newStudentsToEmail: Array<{ student: StudentProfile; plainPassword: string }> = [];
 
     incomingList.forEach((s) => {
       if (s.fullName && s.regNumber) {
@@ -685,7 +764,7 @@ async function startServer() {
             regNumber: s.regNumber,
             email: s.email || `${s.regNumber.toLowerCase()}@student.hiit.ng`,
             phone: s.phone || '',
-            password: assignedPassword,
+            password: hashPassword(assignedPassword),
             courseId: course ? course.id : 'crs_1',
             courseTitle: course ? `${course.code} - ${course.title}` : (s.courseTitle || 'General Course'),
             batchId: batch ? batch.id : 'batch_1',
@@ -695,7 +774,7 @@ async function startServer() {
           };
 
           students.unshift(studentProfile);
-          newStudentsToEmail.push(studentProfile);
+          newStudentsToEmail.push({ student: studentProfile, plainPassword: assignedPassword });
           addedCount++;
         }
       }
@@ -707,7 +786,8 @@ async function startServer() {
     // Dispatch welcome credentials email to imported students if enabled
     let emailsSentCount = 0;
     if (sendEmail !== false && newStudentsToEmail.length > 0) {
-      for (const st of newStudentsToEmail) {
+      for (const entry of newStudentsToEmail) {
+        const st = entry.student;
         try {
           await sendStudentCredentialsEmail(
             {
@@ -715,7 +795,7 @@ async function startServer() {
               studentName: st.fullName,
               regNumber: st.regNumber,
               email: st.email,
-              password: st.password || 'student123',
+              password: entry.plainPassword,
               courseTitle: st.courseTitle,
               batchName: st.batchName
             },
@@ -815,6 +895,15 @@ async function startServer() {
   app.get('/api/questions', (req, res) => {
     const { courseId, status, instructorId } = req.query;
     let list = jsonDb.getQuestions();
+    const session = (req as any).auth;
+    if (session?.role === 'student') {
+      const student = jsonDb.getStudents().find((item) => item.id === session.sub);
+      const allowedQuestionIds = jsonDb.getExams()
+        .filter((exam) => exam.status === 'published' && exam.batchId === student?.batchId)
+        .flatMap((exam) => exam.questionIds);
+      list = list.filter((question) => question.status === 'approved' && allowedQuestionIds.includes(question.id));
+      return res.json(list.map(({ correctAnswer, ...safeQuestion }) => safeQuestion));
+    }
 
     if (courseId) list = list.filter((q) => q.courseId === courseId);
     if (status) list = list.filter((q) => q.status === status);
@@ -972,6 +1061,11 @@ async function startServer() {
   app.get('/api/exams', (req, res) => {
     const { batchId, courseId, status } = req.query;
     let list = jsonDb.getExams();
+    const session = (req as any).auth;
+    if (session?.role === 'student') {
+      const student = jsonDb.getStudents().find((item) => item.id === session.sub);
+      list = list.filter((exam) => exam.status === 'published' && exam.batchId === student?.batchId);
+    }
 
     if (batchId) list = list.filter((e) => e.batchId === batchId);
     if (courseId) list = list.filter((e) => e.courseId === courseId);
@@ -1084,7 +1178,8 @@ async function startServer() {
   app.get('/api/attempts', (req, res) => {
     const { studentId, examId } = req.query;
     let list = jsonDb.getAttempts();
-
+    const session = (req as any).auth;
+    if (session?.role === 'student') list = list.filter((attempt) => attempt.studentId === session.sub);
     if (studentId) list = list.filter((a) => a.studentId === studentId);
     if (examId) list = list.filter((a) => a.examId === examId);
 
@@ -1092,16 +1187,18 @@ async function startServer() {
   });
 
   app.post('/api/attempts/start', (req, res) => {
-    const { examId, studentId } = req.body;
+    const { examId } = req.body;
+    const session = (req as any).auth;
+    const studentId = session.role === 'student' ? session.sub : req.body.studentId;
     if (!examId || !studentId) return res.status(400).json({ error: 'examId and studentId required.' });
 
     const exams = jsonDb.getExams();
     const exam = exams.find((e) => e.id === examId);
-    if (!exam) return res.status(404).json({ error: 'Exam not found.' });
+    if (!exam || (session.role === 'student' && exam.status !== 'published')) return res.status(404).json({ error: 'Exam not found or not available.' });
 
     const students = jsonDb.getStudents();
     const student = students.find((s) => s.id === studentId);
-    if (!student) return res.status(404).json({ error: 'Student profile not found.' });
+    if (!student || (session.role === 'student' && student.id !== session.sub) || (session.role === 'student' && student.batchId !== exam.batchId)) return res.status(403).json({ error: 'You cannot start this examination.' });
 
     const attempts = jsonDb.getAttempts();
     let existingAttempt = attempts.find(
@@ -1140,14 +1237,21 @@ async function startServer() {
     const attempts = jsonDb.getAttempts();
     const attempt = attempts.find((a) => a.id === id);
     if (!attempt) return res.status(404).json({ error: 'Attempt session not found.' });
+    const session = (req as any).auth;
+    if (session.role === 'student' && attempt.studentId !== session.sub) return res.status(403).json({ error: 'You cannot access this examination attempt.' });
 
     if (attempt.status === 'submitted') {
       return res.status(400).json({ error: 'Exam attempt has already been submitted.' });
     }
 
-    if (answers) attempt.answers = answers;
-    if (timeSpentSeconds !== undefined) attempt.timeSpentSeconds = Number(timeSpentSeconds);
-    if (flaggedQuestions) attempt.flaggedQuestions = flaggedQuestions;
+    const exam = jsonDb.getExams().find((item) => item.id === attempt.examId);
+    if (answers && exam) {
+      attempt.answers = Object.fromEntries(Object.entries(answers).filter(([questionId, answer]) =>
+        exam.questionIds.includes(questionId) && ['A', 'B', 'C', 'D'].includes(String(answer).toUpperCase())
+      ).map(([questionId, answer]) => [questionId, String(answer).toUpperCase() as 'A' | 'B' | 'C' | 'D']));
+    }
+    if (timeSpentSeconds !== undefined) attempt.timeSpentSeconds = Math.max(0, Number(timeSpentSeconds) || 0);
+    if (Array.isArray(flaggedQuestions) && exam) attempt.flaggedQuestions = flaggedQuestions.filter((questionId: string) => exam.questionIds.includes(questionId));
 
     jsonDb.saveAttempts(attempts);
     res.json({ success: true, savedAt: new Date().toISOString() });
@@ -1160,13 +1264,20 @@ async function startServer() {
     const attempts = jsonDb.getAttempts();
     const attempt = attempts.find((a) => a.id === id);
     if (!attempt) return res.status(404).json({ error: 'Attempt not found.' });
+    const session = (req as any).auth;
+    if (session.role === 'student' && attempt.studentId !== session.sub) return res.status(403).json({ error: 'You cannot submit this examination attempt.' });
+    if (attempt.status === 'submitted') return res.status(409).json({ error: 'This examination has already been submitted.' });
 
     const exams = jsonDb.getExams();
     const exam = exams.find((e) => e.id === attempt.examId);
     if (!exam) return res.status(404).json({ error: 'Associated exam not found.' });
 
-    const finalAnswers = answers || attempt.answers;
-    const finalTimeSpent = timeSpentSeconds !== undefined ? Number(timeSpentSeconds) : attempt.timeSpentSeconds;
+    const finalAnswers = answers && typeof answers === 'object'
+      ? Object.fromEntries(Object.entries(answers).filter(([questionId, answer]) =>
+          exam.questionIds.includes(questionId) && ['A', 'B', 'C', 'D'].includes(String(answer).toUpperCase())
+        ).map(([questionId, answer]) => [questionId, String(answer).toUpperCase()]))
+      : attempt.answers;
+    const finalTimeSpent = timeSpentSeconds !== undefined ? Math.max(0, Number(timeSpentSeconds) || 0) : attempt.timeSpentSeconds;
 
     const questions = jsonDb.getQuestions();
     const examQuestions = questions.filter((q) => exam.questionIds.includes(q.id));
@@ -1342,6 +1453,13 @@ async function startServer() {
   app.post('/api/seed/reset', (req, res) => {
     jsonDb.resetToFactorySeed();
     res.json({ message: 'MongoDB collections reset to the initial state. A pre-reset snapshot was created on the server.' });
+  });
+
+  // Do not report successful API responses when a queued MongoDB write fails.
+  app.use('/api', (err: any, _req: any, res: any, next: any) => {
+    console.error('[API] Request or database operation failed:', err);
+    if (res.headersSent) return next(err);
+    res.status(500).type('application/json').end(JSON.stringify({ error: 'The request could not be completed. Please retry; the database operation was not confirmed.' }));
   });
 
   // Vite middleware for development

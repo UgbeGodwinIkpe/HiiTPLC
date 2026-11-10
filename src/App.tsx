@@ -184,6 +184,9 @@ export default function App() {
 
   useEffect(() => {
     refreshAllData();
+    const handleUnauthorized = () => setCurrentUser(null);
+    window.addEventListener('hiit:unauthorized', handleUnauthorized);
+    return () => window.removeEventListener('hiit:unauthorized', handleUnauthorized);
   }, []);
 
   // Course Handlers
@@ -577,6 +580,7 @@ export default function App() {
     }
     setCurrentUser(user);
     setActiveTab('overview');
+    void refreshAllData();
   };
 
   const handleLogout = () => {

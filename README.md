@@ -70,3 +70,15 @@ The backend loads records into a short-lived process cache for the existing sync
 - Restrict Atlas Network Access to the hosting provider's outbound IPs where possible; avoid `0.0.0.0/0` for production.
 - Use HTTPS in production and back up the database regularly.
 - The system's JSON export/import feature remains available for backup and restore.
+
+### 6. Authentication and access control
+
+Set `AUTH_SECRET` to a unique random value of at least 32 characters in the host's secret/environment settings. Generate one with `openssl rand -base64 48`. Do not reuse the MongoDB password or commit this value. Existing legacy passwords are verified at first successful login and upgraded to salted `scrypt` hashes. Newly created and reset passwords are stored as hashes. API responses redact password fields.
+
+The server issues signed bearer sessions that expire after eight hours. The browser attaches the session token to API requests. All API routes except `/api/health` and `/api/auth/login` require a valid session. Students are restricted to learning and CBT endpoints, see only published exams assigned to their batch, can only access their own attempts, and never receive question correct-answer fields. Coordinator-only database, instructor, settings-write and factory-reset operations are protected. Login attempts are rate-limited.
+
+**Before production:** change all default/demo credentials, set `AUTH_SECRET`, enable HTTPS, and keep Atlas Network Access restricted. Since the current compatibility layer uses an in-process cache to support the legacy synchronous route handlers, deploy a single application instance. A multi-instance deployment requires the remaining routes to be converted to direct MongoDB queries and atomic updates first.
+
+### 7. CBT data integrity notes
+
+Student identity for CBT attempt creation is taken from the authenticated session rather than trusting the browser's submitted `studentId`. Save and submit operations verify attempt ownership. Scores continue to be calculated on the server from the private answer key. Do not expose the question-bank endpoint to unauthenticated users.

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { MongoClient, Db, Collection } from 'mongodb';
+import { hashPassword } from '../../server/security';
 import {
   User, Course, Batch, StudentProfile, Question, Exam, ExamAttempt,
   ActivityLog, SystemSettings, SystemStats, AttendanceSession, EmailRecord
@@ -46,12 +47,19 @@ class MongoDatabaseManager {
     await this.client.connect();
     this.db = this.client.db(process.env.MONGODB_DB_NAME || 'hiit_abuja_cbt');
     await this.db.command({ ping: 1 });
+    const migrationState = this.db.collection('_system_migrations');
     for (const name of COLLECTIONS) {
       const collection = this.db.collection(name);
       await collection.createIndex({ id: 1 }, { unique: true, sparse: true });
+      if (name === 'users') await collection.createIndex({ email: 1 });
+      if (name === 'students') { await collection.createIndex({ regNumber: 1 }); await collection.createIndex({ email: 1 }); }
+      if (name === 'exams') await collection.createIndex({ batchId: 1, status: 1 });
+      if (name === 'attempts') { await collection.createIndex({ studentId: 1, examId: 1 }); await collection.createIndex({ status: 1 }); }
       let docs = await collection.find({}, { projection: { _id: 0 } }).toArray();
-      // One-time migration: if Mongo collection is empty, import its matching legacy JSON file.
-      if (!docs.length) {
+      const migrationKey = `legacy-json-${name}-v1`;
+      const migrationDone = await migrationState.findOne({ _id: migrationKey });
+      // Import or seed only once. A deliberately emptied collection must stay empty on later restarts.
+      if (!docs.length && !migrationDone) {
         const legacyPath = path.join(DATA_DIR, `${name}.json`);
         if (fs.existsSync(legacyPath)) {
           try {
@@ -75,8 +83,32 @@ class MongoDatabaseManager {
         docs = seeds[name] || [];
         if (docs.length) await collection.insertMany(docs.map((item:any) => ({...item})));
       }
+      if (!migrationDone) await migrationState.insertOne({ _id: migrationKey, completedAt: new Date() });
       this.cache[name] = docs;
     }
+    // Remove previously persisted plaintext credentials from email history as well.
+    for (const emailRecord of (this.cache.emails || [])) {
+      if (typeof emailRecord.passwordSent === 'string' && emailRecord.passwordSent) {
+        const leakedPassword = emailRecord.passwordSent;
+        for (const field of ['preview', 'htmlContent', 'textContent']) {
+          if (typeof emailRecord[field] === 'string') emailRecord[field] = emailRecord[field].split(leakedPassword).join('[password hidden]');
+        }
+        delete emailRecord.passwordSent;
+        await this.collection('emails').replaceOne({ id: emailRecord.id }, emailRecord);
+      }
+    }
+
+    // Upgrade legacy plaintext credentials at rest before the API starts serving requests.
+    for (const collectionName of ['users', 'students'] as const) {
+      const records = this.cache[collectionName] || [];
+      for (const record of records) {
+        if (typeof record.password === 'string' && !record.password.startsWith('scrypt$')) {
+          record.password = hashPassword(record.password);
+          await this.collection(collectionName).updateOne({ id: record.id }, { $set: { password: record.password } });
+        }
+      }
+    }
+
     const settingsCollection = this.db.collection('settings');
     const storedSettings = await settingsCollection.findOne({ _id: 'singleton' });
     if (storedSettings?.value) this.settings = storedSettings.value as SystemSettings;
@@ -105,17 +137,24 @@ class MongoDatabaseManager {
   async flush() { await this.pending; }
   private get<T>(name: CollectionName): T[] { return (this.cache[name] || []) as T[]; }
   private save<T extends {id?:string}>(name: CollectionName, rows: T[]) {
-    this.cache[name] = rows as any[];
-    const snapshot = rows.map(row => ({...row}));
+    // Keep the legacy synchronous service interface while persisting only changed records.
+    // This avoids replacing every document on each small update and prevents unrelated
+    // records from being rewritten on every request.
+    const previous = (this.cache[name] || []) as T[];
+    const next = rows.map(row => ({ ...row }));
+    const previousById = new Map(previous.filter(row => row.id).map(row => [row.id!, row]));
+    const nextById = new Map(next.filter(row => row.id).map(row => [row.id!, row]));
+    const changed = next.filter(row => !row.id || JSON.stringify(previousById.get(row.id)) !== JSON.stringify(row));
+    const removedIds = previous.filter(row => row.id && !nextById.has(row.id)).map(row => row.id);
+    this.cache[name] = next as any[];
     this.enqueue(async () => {
       const col = this.collection(name);
-      if (snapshot.length) {
-        await col.bulkWrite(snapshot.map((doc:any) => ({
+      if (changed.length) {
+        await col.bulkWrite(changed.filter(row => row.id).map((doc:any) => ({
           replaceOne: { filter: { id: doc.id }, replacement: doc, upsert: true }
         })), { ordered: false });
-        const ids = snapshot.map((doc:any) => doc.id).filter(Boolean);
-        await col.deleteMany({ id: { $nin: ids } });
-      } else await col.deleteMany({});
+      }
+      if (removedIds.length) await col.deleteMany({ id: { $in: removedIds } });
     });
   }
 
@@ -148,7 +187,7 @@ class MongoDatabaseManager {
   }
   getStatus():DatabaseStatus {
     const names:Record<string,string>={users:'System Users',courses:'Courses',batches:'Batches',students:'Students',questions:'Question Bank',exams:'CBT Exams',attempts:'Exam Attempts & Results',attendance:'Class Attendance Sessions',logs:'Audit Activity Logs',emails:'Email Notifications'};
-    const files=COLLECTIONS.map(name=>({fileName:name,collection:names[name],recordCount:(this.cache[name]||[]).length,sizeBytes:0,lastModified:this.lastSavedTimestamp}));
+    const files: DatabaseFileMeta[]=COLLECTIONS.map(name=>({fileName:name,collection:names[name],recordCount:(this.cache[name]||[]).length,sizeBytes:0,lastModified:this.lastSavedTimestamp}));
     files.push({fileName:'settings',collection:'System Settings',recordCount:1,sizeBytes:0,lastModified:this.lastSavedTimestamp});
     return {status:this.connected?'healthy':'error',storageType:'MongoDB Atlas',directory:this.db?.databaseName||'',lastSaved:this.lastSavedTimestamp,totalRecords:files.reduce((n,f)=>n+f.recordCount,0),totalSizeBytes:0,files};
   }
@@ -160,7 +199,13 @@ class MongoDatabaseManager {
     if(!backup||typeof backup!=='object') throw new Error('Invalid backup file format.');
     let count=0;
     const mappings:any={users:'users',courses:'courses',batches:'batches',students:'students',questions:'questions',exams:'exams',attempts:'attempts',attendance:'attendance',logs:'logs',emails:'emails'};
-    for(const [key,name] of Object.entries(mappings)) if(Array.isArray(backup[key])) {this.save(name as CollectionName,backup[key]);count+=backup[key].length;}
+    for(const [key,name] of Object.entries(mappings)) if(Array.isArray(backup[key])) {
+      const records = backup[key].map((record:any) => ({ ...record }));
+      if (key === 'users' || key === 'students') {
+        for (const record of records) if (typeof record.password === 'string' && !record.password.startsWith('scrypt$')) record.password = hashPassword(record.password);
+      }
+      this.save(name as CollectionName,records);count+=records.length;
+    }
     if(backup.settings&&typeof backup.settings==='object') this.saveSettings(backup.settings);
     this.addLog('system','System Database Manager','coordinator','DATABASE_RESTORED',`Restored ${count} records from backup.`);
     return {success:true,message:`Successfully restored ${count} records across MongoDB collections.`,count};
@@ -174,7 +219,7 @@ class MongoDatabaseManager {
   }
   resetToFactorySeed():void {
     this.createBackupSnapshot('pre_reset_snapshot');
-    this.saveUsers([...INITIAL_USERS]);this.saveCourses([...INITIAL_COURSES]);this.saveBatches([...INITIAL_BATCHES]);this.saveStudents([...INITIAL_STUDENTS]);this.saveQuestions([...INITIAL_QUESTIONS]);this.saveExams([...INITIAL_EXAMS]);this.saveAttempts([...INITIAL_ATTEMPTS]);this.saveAttendance([...INITIAL_ATTENDANCE_SESSIONS]);this.saveLogs([...INITIAL_LOGS]);this.saveSettings({...INITIAL_SETTINGS});
+    this.saveUsers(INITIAL_USERS.map(user => ({ ...user, password: user.password ? hashPassword(user.password) : undefined })));this.saveCourses([...INITIAL_COURSES]);this.saveBatches([...INITIAL_BATCHES]);this.saveStudents(INITIAL_STUDENTS.map(student => ({ ...student, password: student.password ? hashPassword(student.password) : undefined })));this.saveQuestions([...INITIAL_QUESTIONS]);this.saveExams([...INITIAL_EXAMS]);this.saveAttempts([...INITIAL_ATTEMPTS]);this.saveAttendance([...INITIAL_ATTENDANCE_SESSIONS]);this.saveLogs([...INITIAL_LOGS]);this.saveSettings({...INITIAL_SETTINGS});
     this.addLog('system','System Database Manager','coordinator','DATABASE_RESET','MongoDB collections reset to factory seed data.');
   }
 }

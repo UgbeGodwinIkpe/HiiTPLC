@@ -300,7 +300,7 @@ export const StudentManagement: React.FC<StudentManagementProps> = ({
   // Open email credentials dispatch modal for a specific student
   const handleOpenResendEmail = (std: StudentProfile) => {
     setResendStudent(std);
-    setResendPassword(std.password || 'student123');
+    setResendPassword('');
   };
 
   const handleConfirmSendEmail = async () => {
@@ -1496,7 +1496,7 @@ export const StudentManagement: React.FC<StudentManagementProps> = ({
                   value={resendPassword}
                   onChange={(e) => setResendPassword(e.target.value)}
                   className="w-full pl-8 pr-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-mono font-bold text-slate-900 dark:text-white"
-                  placeholder="Password"
+                  placeholder="Enter a new temporary password"
                 />
               </div>
               <p className="text-[10px] text-slate-400 mt-1">
@@ -1829,7 +1829,7 @@ export const StudentManagement: React.FC<StudentManagementProps> = ({
                           </td>
                           <td className="p-3">
                             <span className="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
-                              {mail.passwordSent || 'student123'}
+                              {mail.passwordSent || 'Not stored for security'}
                             </span>
                           </td>
                           <td className="p-3">
