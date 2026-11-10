@@ -83,7 +83,7 @@ export const DatabaseManagementModal: React.FC<DatabaseManagementModalProps> = (
   const handleDownloadBackup = () => {
     window.location.href = '/api/database/export';
     setActionMessage({
-      text: 'Database backup download started. All system records saved into JSON.',
+      text: 'MongoDB backup export download started.',
       type: 'success'
     });
   };
@@ -173,7 +173,7 @@ export const DatabaseManagementModal: React.FC<DatabaseManagementModalProps> = (
 
   // Handle Reset to Default State
   const handleResetDemoData = async () => {
-    if (confirm('Are you sure you want to reset all JSON database files to the default state? (An automatic safety backup will be created in /data/backups)')) {
+    if (confirm('Are you sure you want to reset all MongoDB collections to the default state? A local safety snapshot will be created first.')) {
       try {
         setLoading(true);
         const res = await fetch('/api/seed/reset', { method: 'POST' });
@@ -208,14 +208,14 @@ export const DatabaseManagementModal: React.FC<DatabaseManagementModalProps> = (
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h3 className="text-sm sm:text-base font-black">Persistent JSON Database Engine</h3>
+                <h3 className="text-sm sm:text-base font-black">MongoDB Database Management</h3>
                 <span className="px-2 py-0.5 text-[9px] sm:text-[10px] font-bold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center space-x-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                   <span className="hidden sm:inline">Active &amp; Persisted</span>
                 </span>
               </div>
               <p className="text-[11px] sm:text-xs text-slate-300 mt-0.5">
-                All records are persistently written to disk in JSON files.
+                Application records are stored in the configured MongoDB database.
               </p>
             </div>
           </div>

@@ -23,9 +23,36 @@ import {
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT || 3000);
+
+  // MongoDB must be ready before API routes begin serving requests.
+  await jsonDb.initialize();
 
   app.use(express.json({ limit: '50mb' }));
+
+  // Ensure queued MongoDB writes are committed before an API response is sent.
+  app.use((req, res, next) => {
+    const originalJson = res.json.bind(res);
+    const originalSend = res.send.bind(res);
+    (res as any).json = (body: any) => {
+      void jsonDb.flush().then(() => originalJson(body)).catch(next);
+      return res;
+    };
+    (res as any).send = (body: any) => {
+      void jsonDb.flush().then(() => originalSend(body)).catch(next);
+      return res;
+    };
+    next();
+  });
+
+  app.get('/api/health', async (_req, res) => {
+    try {
+      await jsonDb.flush();
+      res.json({ status: 'ok', database: 'mongodb', timestamp: new Date().toISOString() });
+    } catch {
+      res.status(503).json({ status: 'error', database: 'unavailable' });
+    }
+  });
 
   // ==========================================
   // DATABASE MANAGEMENT & PERSISTENCE APIs
@@ -71,7 +98,7 @@ async function startServer() {
       const snapshotPath = jsonDb.createBackupSnapshot('manual_snapshot');
       res.json({
         success: true,
-        message: 'JSON database snapshot safely created on disk.',
+        message: 'Database snapshot safely exported to a JSON file on the server disk.',
         path: snapshotPath,
         timestamp: new Date().toISOString()
       });
@@ -1305,7 +1332,7 @@ async function startServer() {
     const current = jsonDb.getSettings();
     const updated = { ...current, ...req.body };
     jsonDb.saveSettings(updated);
-    jsonDb.addLog('usr_coord_1', 'Faculty Coordinator', 'coordinator', 'SETTINGS_UPDATED', `Updated system settings in settings.json.`);
+    jsonDb.addLog('usr_coord_1', 'Faculty Coordinator', 'coordinator', 'SETTINGS_UPDATED', `Updated system settings in MongoDB.`);
     res.json(updated);
   });
 
@@ -1314,7 +1341,7 @@ async function startServer() {
   // ==========================================
   app.post('/api/seed/reset', (req, res) => {
     jsonDb.resetToFactorySeed();
-    res.json({ message: 'System JSON database files successfully reset to initial state! Pre-reset backup archived in /data/backups.' });
+    res.json({ message: 'MongoDB collections reset to the initial state. A pre-reset snapshot was created on the server.' });
   });
 
   // Vite middleware for development
@@ -1338,7 +1365,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[HiiT CBT] Server running on http://0.0.0.0:${PORT} with Persistent JSON Storage Active`);
+    console.log(`[HiiT CBT] Server running on http://0.0.0.0:${PORT} with MongoDB storage`);
   });
 }
 
